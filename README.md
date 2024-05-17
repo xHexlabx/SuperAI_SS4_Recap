@@ -7,3 +7,7 @@
 ## โดยใน Repository นี้ จะประกอบไปด้วย Code Hackathon จาก Level 1 , 2 , 3 แบ่งไปตามระดับนะครับ
 
 ### SuperAI Season 4 | Level 1 
+
+<p>
+ โดยในรอบนี้ จะทำการคัดผู้เข้าร่วมโครงการจากการให้ทำ Hackathon ทั้งหมด 6 ครั้ง (มี pre-hackathon 1 ครั้งด้วย) ประกอบไปด้วย 1.Pre-Hackathon Diabetes Prediction 2.Image Search 3.Thaijo Researcher 4.Soil Water Prediction 5.UWB Pose Prediction 6.Nithan Chadok NER 7.OCR
+</p>
