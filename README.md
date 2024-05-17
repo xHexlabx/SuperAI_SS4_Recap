@@ -11,7 +11,12 @@
 <p>
  โดยในรอบนี้ จะทำการคัดผู้เข้าร่วมโครงการจากการให้ทำ Hackathon ทั้งหมด 6 ครั้ง (มี pre-hackathon 1 ครั้งด้วย) ประกอบไปด้วย 
  <ul>
- <li>1.Pre-Hackathon Diabetes</li> 
-  Prediction 2.Image Search 3.Thaijo Researcher 4.Soil Water Prediction 5.UWB Pose Prediction 6.Nithan Chadok NER 7.OCR
+  <li>1.Pre-Hackathon Diabetes Prediction</li> 
+  <li>2.Image Search</li>
+  <li>3.Thaijo Researcher</li>
+  <li>4.Soil Water Prediction</li>
+  <li>5.UWB Pose Prediction</li>
+  <li>6.Nithan Chadok NER</li>
+  <li>7.OCR</li>
  </ul>
 </p>
