@@ -22,7 +22,9 @@
 </p>
 
 #### Pre-Hackathon Diabetes Prediction
-
+<p>
+ ใน hackathon นี้ ไม่มีอะไรเป็นพิเศษมาก เนื่องจากเป็น hackathon ในคาบทดลอง Kaggle เพื่อเตรียมพร้อมสำหรับการทำ hackathon ต่อ ๆ ไป โดยในโจทย์นี้มีจุดประสงค์เพื่อให้ทำ Machine Learning เพื่อแก้ปัญญาในการคัดแยกผู้ป่วยที่มีความเสี่ยงเป็นโรคเบาหวาน (Classification) โดบสามารถติดตามวิธีการได้ใน repository นี้ 
+</p>
 #### Image Search
 
 #### Thaijo Researcher
