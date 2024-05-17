@@ -25,11 +25,14 @@
 
 #### Image Search
 
-### Thaijo Researcher
+#### Thaijo Researcher
 
-### Soil Water Prediction
-### UWB Pose Prediction
-### Nithan Chadok NER
-### OCR
+#### Soil Water Prediction
+
+#### UWB Pose Prediction
+
+#### Nithan Chadok NER
+
+#### OCR
 
 ### SuperAI Season 4 | Level 2 
