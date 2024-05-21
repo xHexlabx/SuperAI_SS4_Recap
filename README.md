@@ -73,3 +73,24 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_1/Hack
 https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_1/Hack_6_OCR
 
 ### SuperAI Season 4 | Level 2 
+
+<p>
+ โดยในรอบนี้ จะทำการคัดผู้เข้าร่วมโครงการจากการให้ทำ Hackathon ทั้งหมด 6 ครั้ง (มี pre-hackathon 1 ครั้งด้วย) ประกอบไปด้วย 
+ <ul>
+  <li>1.Image Captioning</li> 
+  <li>2.Table Question Answering</li>
+  <li>3.Legal Act Prediction</li>
+  <li>4.Brain Motor Imagery</li>
+  <li>5.Home Credit</li>
+  <li>6.???</li>
+  <li>7.???</li>
+ </ul>
+</p>
+
+#### Image Captioning
+<p>
+ 💬 ใน hackathon นี้ นับเป็น hackathon แรกสุดจากทางโครงการ โดยเป็นการแข่งแบบ on-site โดยเป็นการแข่งบรรยายรูปภาพเป็นข้อความจาก Coco dataset และ IPU-24 ของทางโครงการ โดยสามารถติดตามวิธีการได้ใน repository นี้
+</p>
+
+https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack_1_Image_Captioning
+
