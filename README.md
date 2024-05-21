@@ -83,7 +83,7 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_1/Hack
   <li>2.Table Question Answering</li>
   <li>3.Legal Act Prediction</li>
   <li>4.Brain Motor Imagery</li>
-  <li>5.Home Credit</li>
+  <li>5.Home Credit Risk</li>
   <li>6.???</li>
   <li>7.???</li>
  </ul>
