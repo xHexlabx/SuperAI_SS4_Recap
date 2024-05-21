@@ -72,6 +72,8 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_1/Hack
 
 https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_1/Hack_6_OCR
 
+<hr>
+
 ### SuperAI Season 4 | Level 2 
 
 <p>
