@@ -77,7 +77,7 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_1/Hack
 ### SuperAI Season 4 | Level 2 
 
 <p>
- โดยในรอบนี้ จะทำการคัดผู้เข้าร่วมโครงการจากการให้ทำ Hackathon ทั้งหมด 6 ครั้ง (มี pre-hackathon 1 ครั้งด้วย) ประกอบไปด้วย 
+ โดยในรอบนี้ จะทำการคัดผู้เข้าร่วมโครงการจากการให้ทำ Hackathon ทั้งหมด 7 ครั้ง ประกอบไปด้วย 
  <ul>
   <li>1.Image Captioning</li> 
   <li>2.Table Question Answering</li>
