@@ -86,7 +86,7 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_1/Hack
   <li>3.Legal Act Classification</li>
   <li>4.Brain Motor Imagery</li>
   <li>5.Home Credit Risk</li>
-  <li>6.Medical Image OCR</li>
+  <li>6.Liver_Ultrasound_Detection</li>
   <li>7.???</li>
  </ul>
 </p>
@@ -131,13 +131,13 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack
 
 https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack_5_Home_Credit_Risk
 
-#### Medical Image OCR
+#### Liver_Ultrasound_Detection
 
 <p>
  🏥 ใน hackathon นี้ นับเป็น hackathon ที่ ... โดยสามารถติดตามวิธีการได้ใน repository นี้
 </p>
 
-https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack_6_Medical_Image_OCR
+https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection
 
 
 
