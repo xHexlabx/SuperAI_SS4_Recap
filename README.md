@@ -87,7 +87,7 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_1/Hack
   <li>4.Brain Motor Imagery</li>
   <li>5.Home Credit Risk</li>
   <li>6.Liver_Ultrasound_Detection</li>
-  <li>7.???</li>
+  <li>7.Geo Spatial Image</li>
  </ul>
 </p>
 
