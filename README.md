@@ -140,4 +140,12 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack
 https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection
 
 
+#### Geo Spatial Image
+
+<p>
+ 🏥 ใน hackathon นี้ นับเป็น hackathon ที่ ... โดยสามารถติดตามวิธีการได้ใน repository นี้
+</p>
+
+https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack_7_Geo_Spatial_Image
+
 
