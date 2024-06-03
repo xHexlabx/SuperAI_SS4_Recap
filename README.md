@@ -87,7 +87,7 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_1/Hack
   <li>4.Brain Motor Imagery</li>
   <li>5.Home Credit Risk</li>
   <li>6.Liver_Ultrasound_Detection</li>
-  <li>7.Geo Spatial Image</li>
+  <li>7.Forest Type Classification</li>
  </ul>
 </p>
 
@@ -140,12 +140,12 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack
 https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection
 
 
-#### Geo Spatial Image
+#### Forest Type Classification
 
 <p>
  🌏 ใน hackathon นี้ นับเป็น hackathon ที่ ... โดยสามารถติดตามวิธีการได้ใน repository นี้
 </p>
 
-https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack_7_Geo_Spatial_Image
+https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack_7_Forest_Type_Classification
 
 
