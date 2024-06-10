@@ -92,7 +92,7 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_1/Hack
   <li>3.Legal Act Classification</li>
   <li>4.Brain Motor Imagery</li>
   <li>5.Home Credit Risk</li>
-  <li>6.Liver_Ultrasound_Detection</li>
+  <li>6.Liver Ultrasound Detection</li>
   <li>7.Forest Type Classification</li>
  </ul>
 </p>
