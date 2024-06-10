@@ -6,7 +6,7 @@
 
  <hr>
  
-## ⭐ special thanks ⭐ 
+## ⭐ Special Thanks ⭐ 
  <p>
   <ul>
    <li>N'Jane : https://github.com/jjentaa</li>
