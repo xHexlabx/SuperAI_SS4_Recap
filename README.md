@@ -10,7 +10,7 @@
  <p>
   <ul>
    <li>N'Jane : https://github.com/jjentaa</li>
-   <li>N'P : https://github.com/Makufff</li>
+   <li>N'PP : https://github.com/Makufff</li>
   </ul>
 </p>
 
