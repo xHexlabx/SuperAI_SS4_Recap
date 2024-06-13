@@ -6,6 +6,7 @@
 /SuperAI_SS4_Level_1/Hack_2_Thaijo_Researcher/submissions
 
 /SuperAI_SS4_Level_1/Hack_3_Ultrawideband_Pose_Prediction/datasets
+/SuperAI_SS4_Level_1/Hack_3_Ultrawideband_Pose_Prediction/models
 /SuperAI_SS4_Level_1/Hack_3_Ultrawideband_Pose_Prediction/submissions
 
 /SuperAI_SS4_Level_1/Hack_4_Soil_Water_Prediction/AutogluonModels
@@ -39,6 +40,7 @@
 
 /SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/lightning_logs
 /SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/datasets
+/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/.ipynb_checkpoints
 /SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/submissions
 /SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/models
 
