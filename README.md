@@ -176,8 +176,28 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack
 </p>
 
 #### License Plate Recognition
+<p>
+ 🪪
+</p>
+
 #### Nithan Chadok Hybrid OCR-NER
+<p>
+ 📔
+</p>
+
 #### Car Prediction
+<p>
+ 🚗
+</p>
+
 #### Temperature Prediction
+<p>
+ ♨️
+</p>
+
 #### Sleep Stages Classification
+<p>
+ 😴
+</p>
+
   
