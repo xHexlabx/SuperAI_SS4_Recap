@@ -163,3 +163,15 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack
 <hr>
 
 ### SuperAI Season 4 | Individual Hackathon
+
+<p>
+ โดยในรอบนี้ จะทำการคัดผู้เข้าร่วมโครงการจากการให้ทำ Hackathon ทั้งหมด 7 ครั้ง ประกอบไปด้วย 
+ <ul>
+  <li>1.License Plate Recognition</li> 
+  <li>2.Nithan Chadok Hybrid OCR-NER</li>
+  <li>3.Car Prediction</li>
+  <li>4.Temperature Prediction</li>
+  <li>5.Sleep Stages Classification</li>
+ </ul>
+</p>
+
