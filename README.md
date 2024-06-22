@@ -160,4 +160,6 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack
 
 https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack_7_Forest_Type_Classification
 
+<hr>
 
+### SuperAI Season 4 | Individual Hackathon
