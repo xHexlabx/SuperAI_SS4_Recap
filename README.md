@@ -22,34 +22,42 @@
  โดยใน Repository นี้ จะประกอบไปด้วย Code Hackathon จาก Level 1 , Level 2 และ Individual Hackathon แบ่งไปตามระดับนะครับ
 </p>
 
-| # | Hackathon | Task | Tools หลัก ๆ | Code | 2026 |
-|:-:|---|---|---|:-:|:-:|
-| **Level 1** | | | | | |
-| 0 | Pre-Hackathon Diabetes Prediction 🍰 | Tabular Classification | AutoGluon | [📂](./SuperAI_SS4_Level_1/Pre_Diabetes_Prediction) | ⬜ |
-| 1 | Image Search 🔎 | Similarity Search | CLIP , PyTorch | [📂](./SuperAI_SS4_Level_1/Hack_1_Image_Search) | ⬜ |
-| 2 | ThaiJO Researcher 🗃️ | Data Cleaning | pandas , regex | [📂](./SuperAI_SS4_Level_1/Hack_2_Thaijo_Researcher) | ⬜ |
-| 3 | UWB Pose Prediction 🔊 | Signal Classification | timm (MaxViT) , PyTorch | [📂](./SuperAI_SS4_Level_1/Hack_3_Ultrawideband_Pose_Prediction) | ⬜ |
-| 4 | Soil Water Prediction 💧 | Tabular Regression | AutoGluon | [📂](./SuperAI_SS4_Level_1/Hack_4_Soil_Water_Prediction) | ⬜ |
-| 5 | Nithan Chadok NER 📔 | Named Entity Recognition | PyThaiNLP , transformers , Spark NLP | [📂](./SuperAI_SS4_Level_1/Hack_5_NithanChadok_NER) | ⬜ |
-| 6 | OCR 📷 | Optical Character Recognition | 🚧 | [📂](./SuperAI_SS4_Level_1/Hack_6_OCR) | ⬜ |
-| **Level 2** | | | | | |
-| 1 | Image Captioning 💬 | Vision-Language | BLIP-2 , transformers | [📂](./SuperAI_SS4_Level_2/Hack_1_Image_Captioning) | ⬜ |
-| 2 | Table Question Answering 📄 | LLM Agent | LangChain , GPT-4o | [📂](./SuperAI_SS4_Level_2/Hack_2_Table_Question_Answering) | ⬜ |
-| 3 | Legal Act Classification ⚖️ | Text Classification | 🚧 | [📂](./SuperAI_SS4_Level_2/Hack_3_Legal_Act_Classification) | ⬜ |
-| 4 | Brain Motor Imagery 🧠 | EEG Signal Classification | scipy , PyTorch | [📂](./SuperAI_SS4_Level_2/Hack_4_Brain_Motor_Imagery) | ⬜ |
-| 5 | Home Credit Risk 💸 | Tabular Classification | 🚧 | [📂](./SuperAI_SS4_Level_2/Hack_5_Home_Credit_Risk) | ⬜ |
-| 6 | Liver Ultrasound Detection 🏥 | Medical Image Classification | PyTorch Lightning , MaxViT | [📂](./SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection) | ⬜ |
-| 7 | Forest Type Classification 🌏 | Tabular Classification | AutoGluon , CatBoost , XGBoost | [📂](./SuperAI_SS4_Level_2/Hack_7_Forest_Type_Classification) | ⬜ |
-| **Individual** | | | | | |
-| 1 | License Plate Recognition 🪪 | OCR / Detection | 🚧 | [📂](./SuperAI_SS4_Individual_Hackathon/Hack_1_License_Plate_Recognition) | ⬜ |
-| 2 | Nithan Chadok Hybrid OCR-NER 📔 | OCR + NER | 🚧 | [📂](./SuperAI_SS4_Individual_Hackathon/Hack_2_Nithan_Chadok_Hybrid_OCR-NER) | ⬜ |
-| 3 | Car Prediction 🚗 | Tabular Classification | AutoGluon | [📂](./SuperAI_SS4_Individual_Hackathon/Hack_3_Car_Prediction) | ⬜ |
-| 4 | Temperature Prediction ♨️ | Tabular Regression | CatBoost , XGBoost , AutoGluon | [📂](./SuperAI_SS4_Individual_Hackathon/Hack_4_Temperature_Prediction) | ⬜ |
-| 5 | Sleep Stages Classification 😴 | Signal Classification | FFT , AutoGluon | [📂](./SuperAI_SS4_Individual_Hackathon/Hack_5_Sleep_Stages_Classification) | ⬜ |
+### 🥇 Level 1
+
+| # | Hackathon | Task | Tools |
+|:-:|---|---|---|
+| 0 | 🍰 [Pre-Hackathon Diabetes Prediction](./SuperAI_SS4_Level_1/Pre_Diabetes_Prediction) | Tabular Classification | AutoGluon |
+| 1 | 🔎 [Image Search](./SuperAI_SS4_Level_1/Hack_1_Image_Search) | Similarity Search | CLIP · PyTorch |
+| 2 | 🗃️ [ThaiJO Researcher](./SuperAI_SS4_Level_1/Hack_2_Thaijo_Researcher) | Data Cleaning | pandas · regex |
+| 3 | 🔊 [UWB Pose Prediction](./SuperAI_SS4_Level_1/Hack_3_Ultrawideband_Pose_Prediction) | Signal Classification | timm (MaxViT) · PyTorch |
+| 4 | 💧 [Soil Water Prediction](./SuperAI_SS4_Level_1/Hack_4_Soil_Water_Prediction) | Tabular Regression | AutoGluon |
+| 5 | 📔 [Nithan Chadok NER](./SuperAI_SS4_Level_1/Hack_5_NithanChadok_NER) | Named Entity Recognition | PyThaiNLP · Spark NLP |
+| 6 | 📷 [OCR 🚧](./SuperAI_SS4_Level_1/Hack_6_OCR) | Optical Character Recognition | — |
+
+### 🥈 Level 2
+
+| # | Hackathon | Task | Tools |
+|:-:|---|---|---|
+| 1 | 💬 [Image Captioning](./SuperAI_SS4_Level_2/Hack_1_Image_Captioning) | Vision-Language | BLIP-2 · transformers |
+| 2 | 📄 [Table Question Answering](./SuperAI_SS4_Level_2/Hack_2_Table_Question_Answering) | LLM Agent | LangChain · GPT-4o |
+| 3 | ⚖️ [Legal Act Classification 🚧](./SuperAI_SS4_Level_2/Hack_3_Legal_Act_Classification) | Text Classification | — |
+| 4 | 🧠 [Brain Motor Imagery](./SuperAI_SS4_Level_2/Hack_4_Brain_Motor_Imagery) | EEG Signal Classification | scipy · PyTorch |
+| 5 | 💸 [Home Credit Risk 🚧](./SuperAI_SS4_Level_2/Hack_5_Home_Credit_Risk) | Tabular Classification | — |
+| 6 | 🏥 [Liver Ultrasound Detection](./SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection) | Medical Image Classification | Lightning ⚡ · MaxViT |
+| 7 | 🌏 [Forest Type Classification](./SuperAI_SS4_Level_2/Hack_7_Forest_Type_Classification) | Tabular Classification | AutoGluon · CatBoost · XGBoost |
+
+### 🎯 Individual Hackathon
+
+| # | Hackathon | Task | Tools |
+|:-:|---|---|---|
+| 1 | 🪪 [License Plate Recognition 🚧](./SuperAI_SS4_Individual_Hackathon/Hack_1_License_Plate_Recognition) | OCR / Detection | — |
+| 2 | 📔 [Nithan Chadok Hybrid OCR-NER 🚧](./SuperAI_SS4_Individual_Hackathon/Hack_2_Nithan_Chadok_Hybrid_OCR-NER) | OCR + NER | — |
+| 3 | 🚗 [Car Prediction](./SuperAI_SS4_Individual_Hackathon/Hack_3_Car_Prediction) | Tabular Classification | AutoGluon |
+| 4 | ♨️ [Temperature Prediction](./SuperAI_SS4_Individual_Hackathon/Hack_4_Temperature_Prediction) | Tabular Regression | CatBoost · XGBoost · AutoGluon |
+| 5 | 😴 [Sleep Stages Classification](./SuperAI_SS4_Individual_Hackathon/Hack_5_Sleep_Stages_Classification) | Signal Classification | FFT · AutoGluon |
 
 <p>
- <i>หมายเหตุ : 🚧 คือ Notebook ที่ยังเป็น Placeholder อยู่ครับ เดี๋ยวจะทยอยเติม Code ให้ครบนะครับ 🙏</i><br>
- <i>ช่อง <b>2026</b> คือสถานะการกลับมาทำใหม่ (⬜ = ยังไม่ได้ทำ , ✅ = ทำแล้ว) รายละเอียดอ่านต่อได้ที่หัวข้อ <a href="#-update-2026">Update 2026</a> ครับ</i>
+ <i>หมายเหตุ : 🚧 คือ Notebook ที่ยังเป็น Placeholder อยู่ครับ เดี๋ยวจะทยอยเติม Code ให้ครบนะครับ 🙏</i>
 </p>
 
 <hr>
@@ -285,31 +293,6 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Individual_H
 
 <hr>
 
-### 🔄 Update 2026
-
-<p>
- หลังจากปล่อย Repository นี้มาสักพัก ผมตั้งใจว่าจะ <b>กลับเข้าไปทำโจทย์แต่ละ Hackathon ใหม่อีกรอบ</b> ในปี 2026 ครับ เพราะทั้งโมเดลและเครื่องมือเปลี่ยนไปเยอะมากจากตอนอยู่ค่าย เลยอยากลองดูว่าถ้าทำวันนี้ ด้วยของที่มีวันนี้ ผลจะออกมาเป็นยังไงบ้าง
-</p>
-
-<p>
- โดยของเดิมจาก SS4 จะ <b>เก็บไว้ทั้งหมด ไม่ลบทิ้ง</b> นะครับ ส่วนที่ทำใหม่จะไปเขียนเพิ่มในหัวข้อ <code>🔄 Update 2026</code> ที่อยู่ใน README ของแต่ละ Hackathon แทน จะได้เทียบกันได้ว่าตอนนั้นคิดยังไง แล้วตอนนี้คิดต่างออกไปตรงไหน
-</p>
-
-<p>
- ในแต่ละอันจะบันทึกไว้ 3 หัวข้อ ประกอบไปด้วย
- <ul>
-  <li><b>สิ่งที่เปลี่ยนไป</b> : ถ้าทำวันนี้จะทำต่างจากเดิมยังไง</li>
-  <li><b>โมเดล / เครื่องมือใหม่ที่ลอง</b> : ของใหม่ที่หยิบมาใช้แทนของเดิม</li>
-  <li><b>ผลลัพธ์ที่ได้</b> : ดีขึ้นหรือแย่ลงกว่าเดิมแค่ไหน</li>
- </ul>
-</p>
-
-<p>
- ติดตามความคืบหน้าได้จากช่อง <b>2026</b> ในตารางด้านบนเลยครับ 🙏
-</p>
-
-<hr>
-
 ### 📁 โครงสร้างของ Repository
 
 ```
@@ -321,7 +304,7 @@ SuperAI_SS4_Recap
 ```
 
 <p>
- โดยในแต่ละ Hackathon จะมี <code>README.md</code> (รูปโจทย์ + สรุปโจทย์ + ช่อง Update 2026) และ Notebook ของงานนั้น ๆ อยู่ข้างในนะครับ
+ โดยในแต่ละ Hackathon จะมี <code>README.md</code> (รูปโจทย์ + สรุปโจทย์ + รายละเอียดไฟล์) และ Notebook ของงานนั้น ๆ อยู่ข้างในนะครับ
 </p>
 
 <hr>
