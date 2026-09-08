@@ -4,8 +4,8 @@
  Repository นี้ จัดทำขึ้นมาเพื่อรวบรวม Code และแชร์เทคนิคต่าง ๆ ที่ได้รับจากค่าย SuperAI หวังว่าจะเป็นประโยชน์แก่ผู้เข้าชมทุกท่านให้ได้รับความรู้กลับไป<br>ไม่มากก็น้อย หากมีข้อผิดพลาดตัวผมขออภัยมา ณ ที่นี้ด้วยนะครับ (จาก HexTex Optimizer SS4 🔥🔥🔥)
 </p>
 
- <hr>
- 
+<hr>
+
 ## ⭐ Special Thanks ⭐ 
  <p>
   <ul>
@@ -16,7 +16,41 @@
 
 <hr>
 
-## โดยใน Repository นี้ จะประกอบไปด้วย Code Hackathon จาก Level 1 , 2 , 3 แบ่งไปตามระดับนะครับ 
+## 🗺️ สารบัญ (Table of Contents)
+
+<p>
+ โดยใน Repository นี้ จะประกอบไปด้วย Code Hackathon จาก Level 1 , Level 2 และ Individual Hackathon แบ่งไปตามระดับนะครับ
+</p>
+
+| # | Hackathon | Task | Tools หลัก ๆ | Code | 2026 |
+|:-:|---|---|---|:-:|:-:|
+| **Level 1** | | | | | |
+| 0 | Pre-Hackathon Diabetes Prediction 🍰 | Tabular Classification | AutoGluon | [📂](./SuperAI_SS4_Level_1/Pre_Diabetes_Prediction) | ⬜ |
+| 1 | Image Search 🔎 | Similarity Search | CLIP , PyTorch | [📂](./SuperAI_SS4_Level_1/Hack_1_Image_Search) | ⬜ |
+| 2 | ThaiJO Researcher 🗃️ | Data Cleaning | pandas , regex | [📂](./SuperAI_SS4_Level_1/Hack_2_Thaijo_Researcher) | ⬜ |
+| 3 | UWB Pose Prediction 🔊 | Signal Classification | timm (MaxViT) , PyTorch | [📂](./SuperAI_SS4_Level_1/Hack_3_Ultrawideband_Pose_Prediction) | ⬜ |
+| 4 | Soil Water Prediction 💧 | Tabular Regression | AutoGluon | [📂](./SuperAI_SS4_Level_1/Hack_4_Soil_Water_Prediction) | ⬜ |
+| 5 | Nithan Chadok NER 📔 | Named Entity Recognition | PyThaiNLP , transformers , Spark NLP | [📂](./SuperAI_SS4_Level_1/Hack_5_NithanChadok_NER) | ⬜ |
+| 6 | OCR 📷 | Optical Character Recognition | 🚧 | [📂](./SuperAI_SS4_Level_1/Hack_6_OCR) | ⬜ |
+| **Level 2** | | | | | |
+| 1 | Image Captioning 💬 | Vision-Language | BLIP-2 , transformers | [📂](./SuperAI_SS4_Level_2/Hack_1_Image_Captioning) | ⬜ |
+| 2 | Table Question Answering 📄 | LLM Agent | LangChain , GPT-4o | [📂](./SuperAI_SS4_Level_2/Hack_2_Table_Question_Answering) | ⬜ |
+| 3 | Legal Act Classification ⚖️ | Text Classification | 🚧 | [📂](./SuperAI_SS4_Level_2/Hack_3_Legal_Act_Classification) | ⬜ |
+| 4 | Brain Motor Imagery 🧠 | EEG Signal Classification | scipy , PyTorch | [📂](./SuperAI_SS4_Level_2/Hack_4_Brain_Motor_Imagery) | ⬜ |
+| 5 | Home Credit Risk 💸 | Tabular Classification | 🚧 | [📂](./SuperAI_SS4_Level_2/Hack_5_Home_Credit_Risk) | ⬜ |
+| 6 | Liver Ultrasound Detection 🏥 | Medical Image Classification | PyTorch Lightning , MaxViT | [📂](./SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection) | ⬜ |
+| 7 | Forest Type Classification 🌏 | Tabular Classification | AutoGluon , CatBoost , XGBoost | [📂](./SuperAI_SS4_Level_2/Hack_7_Forest_Type_Classification) | ⬜ |
+| **Individual** | | | | | |
+| 1 | License Plate Recognition 🪪 | OCR / Detection | 🚧 | [📂](./SuperAI_SS4_Individual_Hackathon/Hack_1_License_Plate_Recognition) | ⬜ |
+| 2 | Nithan Chadok Hybrid OCR-NER 📔 | OCR + NER | 🚧 | [📂](./SuperAI_SS4_Individual_Hackathon/Hack_2_Nithan_Chadok_Hybrid_OCR-NER) | ⬜ |
+| 3 | Car Prediction 🚗 | Tabular Classification | AutoGluon | [📂](./SuperAI_SS4_Individual_Hackathon/Hack_3_Car_Prediction) | ⬜ |
+| 4 | Temperature Prediction ♨️ | Tabular Regression | CatBoost , XGBoost , AutoGluon | [📂](./SuperAI_SS4_Individual_Hackathon/Hack_4_Temperature_Prediction) | ⬜ |
+| 5 | Sleep Stages Classification 😴 | Signal Classification | FFT , AutoGluon | [📂](./SuperAI_SS4_Individual_Hackathon/Hack_5_Sleep_Stages_Classification) | ⬜ |
+
+<p>
+ <i>หมายเหตุ : 🚧 คือ Notebook ที่ยังเป็น Placeholder อยู่ครับ เดี๋ยวจะทยอยเติม Code ให้ครบนะครับ 🙏</i><br>
+ <i>ช่อง <b>2026</b> คือสถานะการกลับมาทำใหม่ (⬜ = ยังไม่ได้ทำ , ✅ = ทำแล้ว) รายละเอียดอ่านต่อได้ที่หัวข้อ <a href="#-update-2026">Update 2026</a> ครับ</i>
+</p>
 
 <hr>
 
@@ -28,8 +62,8 @@
   <li>1.Pre-Hackathon Diabetes Prediction</li> 
   <li>2.Image Search</li>
   <li>3.Thaijo Researcher</li>
-  <li>4.Soil Water Prediction</li>
-  <li>5.UWB Pose Prediction</li>
+  <li>4.UWB Pose Prediction</li>
+  <li>5.Soil Water Prediction</li>
   <li>6.Nithan Chadok NER</li>
   <li>7.OCR</li>
  </ul>
@@ -37,17 +71,20 @@
 
 #### Pre-Hackathon Diabetes Prediction
 <p>
- 🍰 ใน Hackathon นี้ ไม่มีอะไรเป็นพิเศษมาก เนื่องจากเป็น Hackathon ในคาบทดลอง Kaggle เพื่อเตรียมพร้อมสำหรับการทำ Hackathon ต่อ ๆ ไป โดยในโจทย์นี้มีจุดประสงค์เพื่อให้ทำ Machine Learning เพื่อแก้ปัญญาในการคัดแยกผู้ป่วยที่มีความเสี่ยงเป็นโรคเบาหวาน (Classification) โดบสามารถติดตามวิธีการได้ใน Repository นี้ 
+ 🍰 ใน Hackathon นี้ ไม่มีอะไรเป็นพิเศษมาก เนื่องจากเป็น Hackathon ในคาบทดลอง Kaggle เพื่อเตรียมพร้อมสำหรับการทำ Hackathon ต่อ ๆ ไป โดยในโจทย์นี้มีจุดประสงค์เพื่อให้ทำ Machine Learning เพื่อแก้ปัญหาในการคัดแยกผู้ป่วยที่มีความเสี่ยงเป็นโรคเบาหวาน (Classification) โดยสามารถติดตามวิธีการได้ใน Repository นี้ 
 </p>
+
+> **Task** : Tabular Classification &nbsp;|&nbsp; **Tools** : AutoGluon , pandas
 
 https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_1/Pre_Diabetes_Prediction
 
 #### Image Search
 
 <p>
- 🔎 ใน Hackathon นี้ เป็น Hackathon เรื่อง <b>Image Search</b> หรือให้อธิบายง่าย ๆ ก็คือ มีข้อมูลที่เป็น <b>รูปภาพ</b> เข้ามาแล้วให้ทายว่ารูปภาพที่เข้ามานั้น <b>คล้ายกับ</b> รูปภาพใดใน folder queries ที่มีให้ คล้าย ๆ งาน Classifacation แต่เราจะใช้วิธีการที่เรียกว่า <b>Similarity Search</b> ในการตอบคำถามนี้ โดยสามารถติดตามวิธีการได้ใน Repository นี้
+ 🔎 ใน Hackathon นี้ เป็น Hackathon เรื่อง <b>Image Search</b> หรือให้อธิบายง่าย ๆ ก็คือ มีข้อมูลที่เป็น <b>รูปภาพ</b> เข้ามาแล้วให้ทายว่ารูปภาพที่เข้ามานั้น <b>คล้ายกับ</b> รูปภาพใดใน folder queries ที่มีให้ คล้าย ๆ งาน Classification แต่เราจะใช้วิธีการที่เรียกว่า <b>Similarity Search</b> ในการตอบคำถามนี้ โดยสามารถติดตามวิธีการได้ใน Repository นี้
  </p>
 
+> **Task** : Similarity Search / Image Retrieval &nbsp;|&nbsp; **Tools** : CLIP (`openai/clip-vit-large-patch14`) , PyTorch , transformers
 
 https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_1/Hack_1_Image_Search
 
@@ -56,26 +93,34 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_1/Hack
  🗃️ ใน Hackathon นี้ นับเป็น Hackathon ที่ <b>เหนื่อยที่สุด</b> เลยก็เป็นได้ เนื่องจาก Hackathon นี้ จัดทำขึ้นมาเพื่อให้ <b>Clean Dataset!!!</b> คุณอ่านไม่ผิดครับ ใช่ครับ คุณจะได้เทคนิคในการ clean data จาก Thaijo แบบ <b>จะเป็นจะตาย</b> รับรองความสนุกเป็นทุกข์ไปด้วยกัน โดยสามารถติดตามวิธีการได้ใน Repository นี้
 </p>
 
+> **Task** : Data Cleaning / Text Preprocessing &nbsp;|&nbsp; **Tools** : pandas , regex
+
  https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_1/Hack_2_Thaijo_Researcher
-
-#### Soil Water Prediction
-<p>
- 💧 ใน Hackathon นี้ จะเป็นการทำ <b>Regression</b> ความชื่นในดินด้วยข้อมูล tabular ที่ได้รับมาในวันอื่น ๆ เป็น Hackathon ที่เน้นในการทำ Machine Learning และการวิเคราะห์ features โดยสามารถติดตามวิธีการได้ใน Repository นี้
-</p>
-
-https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_1/Hack_3_Ultrawideband_Pose_Prediction
 
 #### UWB Pose Prediction
 <p>
- 🔊 ใน Hackathon นี้ จะเป็นการทำ <b>Signal Classification</b> จาก สัญญาณ <b>Ultra-Wide-Band</b> โดยจะใ้ห้ทำการ Classified ท่า Pose ต่าง ๆ จากตัวสัญญาณ และ มีเทคนิคในการทำ <u>signal to image</u> เข้ามาเพิ่มเติมด้วย โดยสามารถติดตามวิธีการได้ใน Repository นี้
+ 🔊 ใน Hackathon นี้ จะเป็นการทำ <b>Signal Classification</b> จาก สัญญาณ <b>Ultra-Wide-Band</b> โดยจะให้ทำการ Classified ท่า Pose ต่าง ๆ จากตัวสัญญาณ และ มีเทคนิคในการทำ <u>signal to image</u> เข้ามาเพิ่มเติมด้วย โดยสามารถติดตามวิธีการได้ใน Repository นี้
 </p>
+
+> **Task** : Signal Classification (signal → image) &nbsp;|&nbsp; **Tools** : timm (`maxvit_base_tf_384`) , PyTorch , torchvision
+
+https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_1/Hack_3_Ultrawideband_Pose_Prediction
+
+#### Soil Water Prediction
+<p>
+ 💧 ใน Hackathon นี้ จะเป็นการทำ <b>Regression</b> ความชื้นในดินด้วยข้อมูล tabular ที่ได้รับมาในวันอื่น ๆ เป็น Hackathon ที่เน้นในการทำ Machine Learning และการวิเคราะห์ features โดยสามารถติดตามวิธีการได้ใน Repository นี้
+</p>
+
+> **Task** : Tabular Regression &nbsp;|&nbsp; **Tools** : AutoGluon , pandas
 
 https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_1/Hack_4_Soil_Water_Prediction
 
 #### Nithan Chadok NER
 <p>
- 📔 ใน Hackathon นี้ จะเป็นการทำ Name-Entity-Recognition ใน <b>นิทานชาดก</b> โดยความยากคือเราจะได้ dataset <b>สุดมหัศจรรย์</b> โดยสามารถติดตามวิธีการได้ใน Repository นี้
+ 📔 ใน Hackathon นี้ จะเป็นการทำ Named-Entity-Recognition ใน <b>นิทานชาดก</b> โดยความยากคือเราจะได้ dataset <b>สุดมหัศจรรย์</b> โดยสามารถติดตามวิธีการได้ใน Repository นี้
 </p>
+
+> **Task** : Named Entity Recognition (Token Classification) &nbsp;|&nbsp; **Tools** : PyThaiNLP , transformers , Spark NLP , seqeval
 
 https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_1/Hack_5_NithanChadok_NER
 
@@ -83,6 +128,8 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_1/Hack
 <p>
  📷 ใน Hackathon นี้ จะเป็นการทำ OCR โดยสามารถติดตามวิธีการได้ใน Repository นี้
 </p>
+
+> **Task** : Optical Character Recognition &nbsp;|&nbsp; **Tools** : 🚧 กำลังจัดทำ
 
 https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_1/Hack_6_OCR
 
@@ -109,6 +156,8 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_1/Hack
  💬 ใน Hackathon นี้ นับเป็น Hackathon แรกสุดจากทางโครงการ โดยเป็นการแข่งแบบ On-Site โดยเป็นการแข่งบรรยายรูปภาพเป็นข้อความจาก Coco dataset และ IPU-24 ของทางโครงการ โดยสามารถติดตามวิธีการได้ใน Repository นี้
 </p>
 
+> **Task** : Image Captioning (Vision-Language) &nbsp;|&nbsp; **Tools** : BLIP-2 (`Salesforce/blip2-opt-2.7b`) , transformers , PyTorch
+
 https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack_1_Image_Captioning
 
 #### Table Question Answering
@@ -117,13 +166,17 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack
  📄 ใน Hackathon นี้ นับเป็น Hackathon ที่กิน Resource มากที่สุด เพราะต้องทำงาน Table-Question-Answering บน Data ขนาดใหญ่ และยังเป็นสัปดาห์ที่มีโอกาสได้ใช้ในตัวของ Lanta อีกด้วย โดยสามารถติดตามวิธีการได้ใน Repository นี้
 </p>
 
+> **Task** : Table Question Answering (LLM Agent) &nbsp;|&nbsp; **Tools** : LangChain , GPT-4o , pandas
+
 https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack_2_Table_Question_Answering
 
 #### Legal Act Classification
 
 <p>
-  ⚖️ ใน Hackathon นี้ นับเป็น Hackathon ที่ต้องมีการพึ่งพา Domain Expert สูงมาก เพราะเป็นโมเดลทางด้านกฎหมาย โดยในสัปดาห์นี้เราจะต้องให้โมเดลตอบคำถามทางกฏหมายว่า หากมีเงื่อนไขตามโจทย์ การทำสัญญาเช่นนี้ ๆ สามารถทำได้หรือไม่ ? <br> โดยสามารถติดตามวิธีการได้ใน Repository นี้
+  ⚖️ ใน Hackathon นี้ นับเป็น Hackathon ที่ต้องมีการพึ่งพา Domain Expert สูงมาก เพราะเป็นโมเดลทางด้านกฎหมาย โดยในสัปดาห์นี้เราจะต้องให้โมเดลตอบคำถามทางกฎหมายว่า หากมีเงื่อนไขตามโจทย์ การทำสัญญาเช่นนี้ ๆ สามารถทำได้หรือไม่ ? <br> โดยสามารถติดตามวิธีการได้ใน Repository นี้
 </p>
+
+> **Task** : Text Classification &nbsp;|&nbsp; **Tools** : 🚧 กำลังจัดทำ
 
 https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack_3_Legal_Act_Classification
 
@@ -133,6 +186,9 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack
  🧠 ใน Hackathon นี้ นับเป็น Hackathon ที่ยากลำบากที่สุด เนื่องจาก Data ที่ได้รับมาใช้งานยากมาก มี Noise และมีรูปแบบที่มองยาก นับเป็น Hackathon ที่มีความยากด้าน Technical มากที่สุด โดยในงานนี้เราได้รับบทเป็นคุณหมอที่จะต้อง Classified ว่าหากมีสัญญาณสมองที่ได้รับมาตามนี้ ๆ ผู้ทดสอบกำลังคิดว่าเคลื่อนที่ไปทาง ซ้าย - ขวา หรือ Resting โดยสามารถติดตามวิธีการได้ใน Repository นี้
 </p>
 
+> **Task** : EEG Signal Classification &nbsp;|&nbsp; **Tools** : scipy (filtering) , PyTorch , torchmetrics<br>
+> **ไฟล์ในโฟลเดอร์** : `hack4_preprocess.ipynb` (ทำความสะอาด + ตัด chunk สัญญาณ) , `hack4_visualize-2.ipynb` (Plot สัญญาณ + เทรนโมเดล)
+
 https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack_4_Brain_Motor_Imagery
 
 #### Home Credit Risk
@@ -140,6 +196,8 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack
 <p>
  💸 ใน Hackathon นี้ นับเป็น Hackathon ที่มี Data ขนาดใหญ่ เป็นงานที่จะต้องมองความเสี่ยงในการอนุมัติสินเชื่อ โดยให้ Classified ว่าบุคคลคนที่สามารถจ่ายหนี้ได้หรือไม่ ? โดยสามารถติดตามวิธีการได้ใน Repository นี้
 </p>
+
+> **Task** : Tabular Classification &nbsp;|&nbsp; **Tools** : 🚧 กำลังจัดทำ
 
 https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack_5_Home_Credit_Risk
 
@@ -149,14 +207,19 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack
  🏥 ใน Hackathon นี้ นับเป็น Hackathon ที่ต้องทำงานร่วมกับ Medical Image โดยทำการ Detection เนื้องอกชนิดต่าง ๆ ในตับ รวมถึง <b>มะเร็งตับ</b> อีกด้วย โดยใน Hackathon จำเป็นต้องทำการ Augment Data ค่อนข้างมากเพราะจำเป็นต้องต่อยอดผลลัพธ์เพื่อให้คุณหมอสามารถใช้งานโมเดลผ่านรูปถ่าย Ultrasound จากโทรศัพท์ได้ โดยสามารถติดตามวิธีการได้ใน Repository นี้
 </p>
 
+> **Task** : Medical Image Detection / Classification &nbsp;|&nbsp; **Tools** : PyTorch Lightning ⚡ , timm (`maxvit_tiny_tf_224`) , torchmetrics
+
 https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection
 
 
 #### Forest Type Classification
 
 <p>
- 🌏 ใน Hackathon นี้ นับเป็น Hackathon ที่สามารถทำได้ง่ายที่สุดเพราะออกแบบมาเพื่อให้เป็น Individual Hackathon โดยในงานนี้เราจะได้รับบทเป็นนักวิเคราะห์เซนเซอร์จากดาวเทียม เพื่อวิเคราะห์ว่าจากข้อมูลที่ได้รับมานั้น เป็นข้อมูลของป่าเต็งรัง (MDF) ป่าเบญพรรณ (DDF) หรือป่าดิบแล้ง (DEF) เป็นโจทย์ <b>Tabular Data Classification</b> นั่นเอง โดยสามารถติดตามวิธีการได้ใน Repository นี้
+ 🌏 ใน Hackathon นี้ นับเป็น Hackathon ที่สามารถทำได้ง่ายที่สุดเพราะออกแบบมาเพื่อให้เป็น Individual Hackathon โดยในงานนี้เราจะได้รับบทเป็นนักวิเคราะห์เซนเซอร์จากดาวเทียม เพื่อวิเคราะห์ว่าจากข้อมูลที่ได้รับมานั้น เป็นข้อมูลของป่าเบญจพรรณ (MDF) ป่าเต็งรัง (DDF) หรือป่าดิบแล้ง (DEF) เป็นโจทย์ <b>Tabular Data Classification</b> นั่นเอง โดยสามารถติดตามวิธีการได้ใน Repository นี้
 </p>
+
+> **Task** : Tabular Classification &nbsp;|&nbsp; **Tools** : AutoGluon , CatBoost , XGBoost , SMOTE (imblearn) , PyTorch Lightning<br>
+> **ไฟล์ในโฟลเดอร์** : `Forest_Type_Classification.ipynb` (Baseline 3 คลาสรวด) , `Forest_Type_Double_Classifier.ipynb` (แตกเป็น 2 ชั้น DEF/NON-DEF → MDF/DDF) , `Forest_Type_Double_Classifier_MLP.ipynb` (เวอร์ชัน MLP)
 
 https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack_7_Forest_Type_Classification
 
@@ -177,27 +240,92 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack
 
 #### License Plate Recognition
 <p>
- 🪪
+ 🪪 ใน Hackathon นี้ จะเป็นการอ่านป้ายทะเบียนรถจากรูปภาพ โดยสามารถติดตามวิธีการได้ใน Repository นี้
 </p>
+
+> **Task** : License Plate Recognition &nbsp;|&nbsp; **Tools** : 🚧 กำลังจัดทำ
+
+https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Individual_Hackathon/Hack_1_License_Plate_Recognition
 
 #### Nithan Chadok Hybrid OCR-NER
 <p>
- 📔
+ 📔 ใน Hackathon นี้ จะเป็นการนำงาน OCR และ NER มารวมร่างกันเป็น Pipeline เดียว คือ อ่านตัวอักษรจาก <b>นิทานชาดก</b> ออกมาก่อน แล้วค่อยหา Entity ต่อ โดยสามารถติดตามวิธีการได้ใน Repository นี้
 </p>
+
+> **Task** : OCR + Named Entity Recognition &nbsp;|&nbsp; **Tools** : 🚧 กำลังจัดทำ
+
+https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Individual_Hackathon/Hack_2_Nithan_Chadok_Hybrid_OCR-NER
 
 #### Car Prediction
 <p>
- 🚗
+ 🚗 ใน Hackathon นี้ จะเป็นการทำนายผลจากข้อมูล <b>แบบสอบถาม</b> (Questionnaire) ที่มีทั้งอาชีพ พฤติกรรมการใช้ Social Media ต่าง ๆ ความสนุกจะอยู่ที่การจัดการ Missing Value ที่ถูกเข้ารหัสมาเป็น <b>888 / 999</b> และการตัด features ที่ไม่จำเป็นทิ้ง โดยสามารถติดตามวิธีการได้ใน Repository นี้
 </p>
+
+> **Task** : Tabular Classification &nbsp;|&nbsp; **Tools** : AutoGluon , pandas
+
+https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Individual_Hackathon/Hack_3_Car_Prediction
 
 #### Temperature Prediction
 <p>
- ♨️
+ ♨️ ใน Hackathon นี้ จะเป็นการทำ <b>Regression</b> ทำนายอุณหภูมิจากข้อมูลสถานีตรวจวัดอากาศ โดยจะได้เล่นกับการทำ Feature Engineering จาก <u>เวลา</u> และการตัด column ที่เป็นรหัสพื้นที่ต่าง ๆ ทิ้ง แล้วเทียบผลระหว่าง Gradient Boosting กับ AutoGluon โดยสามารถติดตามวิธีการได้ใน Repository นี้
 </p>
+
+> **Task** : Tabular Regression &nbsp;|&nbsp; **Tools** : CatBoost , XGBoost , AutoGluon , scikit-learn
+
+https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Individual_Hackathon/Hack_4_Temperature_Prediction
 
 #### Sleep Stages Classification
 <p>
- 😴
+ 😴 ใน Hackathon นี้ จะเป็นการ Classified <b>ระยะการนอนหลับ</b> จากสัญญาณชีวภาพ โดยจะต้องซอยสัญญาณออกเป็นช่วงละ <b>30 วินาที (1920 rows)</b> แล้วทำ Feature Engineering ด้วย <u>FFT</u> เพื่อดึงข้อมูลด้านความถี่ออกมาก่อนโยนเข้าโมเดล นับเป็นงานที่ได้ใช้ทั้งความรู้ด้าน Signal Processing และ Machine Learning โดยสามารถติดตามวิธีการได้ใน Repository นี้
 </p>
 
-  
+> **Task** : Signal Classification &nbsp;|&nbsp; **Tools** : numpy (FFT) , AutoGluon , scikit-learn , seaborn
+
+https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Individual_Hackathon/Hack_5_Sleep_Stages_Classification
+
+<hr>
+
+### 🔄 Update 2026
+
+<p>
+ หลังจากปล่อย Repository นี้มาสักพัก ผมตั้งใจว่าจะ <b>กลับเข้าไปทำโจทย์แต่ละ Hackathon ใหม่อีกรอบ</b> ในปี 2026 ครับ เพราะทั้งโมเดลและเครื่องมือเปลี่ยนไปเยอะมากจากตอนอยู่ค่าย เลยอยากลองดูว่าถ้าทำวันนี้ ด้วยของที่มีวันนี้ ผลจะออกมาเป็นยังไงบ้าง
+</p>
+
+<p>
+ โดยของเดิมจาก SS4 จะ <b>เก็บไว้ทั้งหมด ไม่ลบทิ้ง</b> นะครับ ส่วนที่ทำใหม่จะไปเขียนเพิ่มในหัวข้อ <code>🔄 Update 2026</code> ที่อยู่ใน README ของแต่ละ Hackathon แทน จะได้เทียบกันได้ว่าตอนนั้นคิดยังไง แล้วตอนนี้คิดต่างออกไปตรงไหน
+</p>
+
+<p>
+ ในแต่ละอันจะบันทึกไว้ 3 หัวข้อ ประกอบไปด้วย
+ <ul>
+  <li><b>สิ่งที่เปลี่ยนไป</b> : ถ้าทำวันนี้จะทำต่างจากเดิมยังไง</li>
+  <li><b>โมเดล / เครื่องมือใหม่ที่ลอง</b> : ของใหม่ที่หยิบมาใช้แทนของเดิม</li>
+  <li><b>ผลลัพธ์ที่ได้</b> : ดีขึ้นหรือแย่ลงกว่าเดิมแค่ไหน</li>
+ </ul>
+</p>
+
+<p>
+ ติดตามความคืบหน้าได้จากช่อง <b>2026</b> ในตารางด้านบนเลยครับ 🙏
+</p>
+
+<hr>
+
+### 📁 โครงสร้างของ Repository
+
+```
+SuperAI_SS4_Recap
+├── assets                           # รูป banner ของแต่ละ Hackathon
+├── SuperAI_SS4_Level_1              # Hackathon รอบคัดเลือก Level 1 (+ Pre-Hackathon)
+├── SuperAI_SS4_Level_2              # Hackathon รอบคัดเลือก Level 2
+└── SuperAI_SS4_Individual_Hackathon # Individual Hackathon
+```
+
+<p>
+ โดยในแต่ละ Hackathon จะมี <code>README.md</code> (รูปโจทย์ + สรุปโจทย์ + ช่อง Update 2026) และ Notebook ของงานนั้น ๆ อยู่ข้างในนะครับ
+</p>
+
+<hr>
+
+<p align="center">
+ ⭐ ถ้า Repository นี้มีประโยชน์ ฝากกด Star เป็นกำลังใจให้กันด้วยนะครับ ⭐
+</p>

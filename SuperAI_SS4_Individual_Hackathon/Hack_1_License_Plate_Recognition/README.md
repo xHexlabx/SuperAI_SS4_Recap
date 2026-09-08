@@ -1,22 +1,20 @@
-![ocr](../../assets/ocr.webp)
-
-# 📷 OCR
+# 🪪 License Plate Recognition
 
 <p>
- <b>SuperAI Season 4 | Level 1 | Hackathon 6</b>
+ <b>SuperAI Season 4 | Individual Hackathon 1</b>
 </p>
 
 <p>
- ใน Hackathon นี้ จะเป็นการทำ OCR อ่านตัวอักษรออกมาจากรูปภาพ โดยสามารถติดตามวิธีการได้ใน Notebook ด้านล่างนี้เลยครับ
+ ใน Hackathon นี้ จะเป็นการอ่าน <b>ป้ายทะเบียนรถ</b> จากรูปภาพ โดยสามารถติดตามวิธีการได้ใน Notebook ด้านล่างนี้เลยครับ
 </p>
 
-> **Task** : Optical Character Recognition &nbsp;|&nbsp; **Tools** : 🚧 กำลังจัดทำ
+> **Task** : License Plate Recognition (OCR / Detection) &nbsp;|&nbsp; **Tools** : 🚧 กำลังจัดทำ
 
 <hr>
 
 ## 📓 ไฟล์ในโฟลเดอร์นี้
 
-- [`OCR.ipynb`](./OCR.ipynb) — 🚧 ยังเป็น Placeholder อยู่ครับ
+- [`License_Plate_Recognition.ipynb`](./License_Plate_Recognition.ipynb) — 🚧 ยังเป็น Placeholder อยู่ครับ
 
 <hr>
 

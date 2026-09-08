@@ -1,22 +1,20 @@
-![ocr](../../assets/ocr.webp)
-
-# 📷 OCR
+# 💸 Home Credit Risk
 
 <p>
- <b>SuperAI Season 4 | Level 1 | Hackathon 6</b>
+ <b>SuperAI Season 4 | Level 2 | Hackathon 5</b>
 </p>
 
 <p>
- ใน Hackathon นี้ จะเป็นการทำ OCR อ่านตัวอักษรออกมาจากรูปภาพ โดยสามารถติดตามวิธีการได้ใน Notebook ด้านล่างนี้เลยครับ
+ ใน Hackathon นี้ นับเป็น Hackathon ที่มี Data ขนาดใหญ่ เป็นงานที่จะต้องมองความเสี่ยงในการอนุมัติสินเชื่อ โดยให้ Classified ว่าบุคคลคนนี้สามารถจ่ายหนี้ได้หรือไม่ ? โดยสามารถติดตามวิธีการได้ใน Notebook ด้านล่างนี้เลยครับ
 </p>
 
-> **Task** : Optical Character Recognition &nbsp;|&nbsp; **Tools** : 🚧 กำลังจัดทำ
+> **Task** : Tabular Classification &nbsp;|&nbsp; **Tools** : 🚧 กำลังจัดทำ
 
 <hr>
 
 ## 📓 ไฟล์ในโฟลเดอร์นี้
 
-- [`OCR.ipynb`](./OCR.ipynb) — 🚧 ยังเป็น Placeholder อยู่ครับ
+- [`Home_Credit_Risk.ipynb`](./Home_Credit_Risk.ipynb) — 🚧 ยังเป็น Placeholder อยู่ครับ
 
 <hr>
 

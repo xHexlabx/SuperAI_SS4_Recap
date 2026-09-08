@@ -1,1 +1,39 @@
-![uwb](https://github.com/xHexlabx/SuperAI_SS4_Recap/assets/118115127/9dc9c7d3-1e9f-49cf-bc82-492478554844)
+![uwb_pose_prediction](../../assets/uwb_pose_prediction.webp)
+
+# 🔊 UWB Pose Prediction
+
+<p>
+ <b>SuperAI Season 4 | Level 1 | Hackathon 3</b>
+</p>
+
+<p>
+ ใน Hackathon นี้ จะเป็นการทำ <b>Signal Classification</b> จาก สัญญาณ <b>Ultra-Wide-Band</b> โดยจะให้ทำการ Classified ท่า Pose ต่าง ๆ จากตัวสัญญาณ และ มีเทคนิคในการทำ <u>signal to image</u> เข้ามาเพิ่มเติมด้วย โดยสามารถติดตามวิธีการได้ใน Notebook ด้านล่างนี้เลยครับ
+</p>
+
+> **Task** : Signal Classification (signal → image) &nbsp;|&nbsp; **Tools** : timm (`maxvit_base_tf_384`) , PyTorch , torchvision
+
+<hr>
+
+## 📓 ไฟล์ในโฟลเดอร์นี้
+
+- [`UWB_Pose_Prediction.ipynb`](./UWB_Pose_Prediction.ipynb) — แปลงสัญญาณเป็นรูปภาพ → Fine-tune MaxViT (7 คลาส)
+
+<hr>
+
+## 🔄 Update 2026
+
+<p>
+ 🚧 ส่วนนี้เอาไว้บันทึกตอนที่กลับมาทำโจทย์นี้ใหม่ในปี 2026 นะครับ ว่าถ้าทำวันนี้จะทำต่างจากเดิมยังไงบ้าง
+</p>
+
+<ul>
+ <li><b>สิ่งที่เปลี่ยนไป</b> : <i>(ยังไม่ได้เขียน)</i></li>
+ <li><b>โมเดล / เครื่องมือใหม่ที่ลอง</b> : <i>(ยังไม่ได้เขียน)</i></li>
+ <li><b>ผลลัพธ์ที่ได้</b> : <i>(ยังไม่ได้เขียน)</i></li>
+</ul>
+
+<hr>
+
+<p align="center">
+ <a href="../../README.md">⬅️ กลับไปหน้าหลัก</a>
+</p>
