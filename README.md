@@ -40,7 +40,7 @@
 |:-:|---|---|---|
 | 1 | 💬 [Image Captioning](./SuperAI_SS4_Level_2/Hack_1_Image_Captioning) | Vision-Language | BLIP-2 · transformers |
 | 2 | 📄 [Table Question Answering](./SuperAI_SS4_Level_2/Hack_2_Table_Question_Answering) | LLM Agent | LangChain · GPT-4o |
-| 3 | ⚖️ [Legal Act Classification 🚧](./SuperAI_SS4_Level_2/Hack_3_Legal_Act_Classification) | Text Classification | — |
+| 3 | ⚖️ [Legal Act Classification](./SuperAI_SS4_Level_2/Hack_3_Legal_Act_Classification) | Rule Reasoning (LLM) | Qwen3 · vLLM · rule engine |
 | 4 | 🧠 [Brain Motor Imagery](./SuperAI_SS4_Level_2/Hack_4_Brain_Motor_Imagery) | EEG Signal Classification | scipy · PyTorch |
 | 5 | 💸 [Home Credit Risk 🚧](./SuperAI_SS4_Level_2/Hack_5_Home_Credit_Risk) | Tabular Classification | — |
 | 6 | 🏥 [Liver Ultrasound Detection](./SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection) | Medical Image Classification | Lightning ⚡ · MaxViT |
@@ -184,7 +184,7 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack
   ⚖️ ใน Hackathon นี้ นับเป็น Hackathon ที่ต้องมีการพึ่งพา Domain Expert สูงมาก เพราะเป็นโมเดลทางด้านกฎหมาย โดยในสัปดาห์นี้เราจะต้องให้โมเดลตอบคำถามทางกฎหมายว่า หากมีเงื่อนไขตามโจทย์ การทำสัญญาเช่นนี้ ๆ สามารถทำได้หรือไม่ ? <br> โดยสามารถติดตามวิธีการได้ใน Repository นี้
 </p>
 
-> **Task** : Text Classification &nbsp;|&nbsp; **Tools** : 🚧 กำลังจัดทำ
+> **Task** : Rule Reasoning (text → boolean) &nbsp;|&nbsp; **Tools** : Qwen3-14B , vLLM , bipartite matching
 
 https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack_3_Legal_Act_Classification
 

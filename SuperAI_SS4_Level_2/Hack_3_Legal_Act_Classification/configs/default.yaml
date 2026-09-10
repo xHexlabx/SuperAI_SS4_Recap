@@ -1,0 +1,63 @@
+# Legal Act Classification — default config
+# ปรับค่าใน block ที่ต้องการแล้วส่งเข้าไปด้วย --config <path>
+
+data:
+  # https://www.kaggle.com/competitions/legal-act-classification
+  # ⚠️ ต้องกด accept rules ในเว็บก่อน ไม่งั้น CLI จะขึ้น 403
+  kaggle_slug: legal-act-classification
+  kaggle_kind: competition
+  root: datasets            # โฟลเดอร์ปลายทาง (gitignored)
+  train_csv: train.csv
+  test_csv: test.csv
+  # ไฟล์ *_title.csv คือชุดเดียวกันแต่ชื่อคนมีคำนำหน้า (นาย/นาง/นางสาว) ติดมาด้วย
+  # เราใช้ไฟล์ปกติ แล้วไป match กับ committee.csv เอา เพราะ 23,181/23,183 ชื่อ
+  # ตรงกับสมาชิกในคณะกรรมการแบบเป๊ะ ๆ หลังตัดช่องว่างทิ้ง
+  committee_csv: committee.csv
+  patterns_csv: patterns.csv
+  sample_submission_csv: sample_submission.csv
+
+llm:
+  # ทุก backend คุยผ่าน OpenAI-compatible /v1/chat/completions เหมือนกันหมด
+  # local : vllm serve Qwen/Qwen3-14B-AWQ           -> base_url = http://localhost:8000/v1
+  # ollama: ollama serve                               -> base_url = http://localhost:11434/v1
+  # remote: OpenRouter / DashScope                     -> base_url + ตั้ง LLM_API_KEY
+  base_url: http://localhost:8000/v1
+  model: Qwen/Qwen3-14B-AWQ
+  api_key_env: LLM_API_KEY  # ไม่ต้องมีค่าถ้ารัน local
+  temperature: 0.0
+  top_p: 1.0
+  max_tokens: 3072
+  # Qwen3 มี thinking mode ในตัว — off = ตอบ JSON ตรง ๆ (เร็วกว่าและ parse ง่ายกว่า)
+  # ใช้ "default" ถ้าปลายทางเป็น API ที่ไม่รู้จัก chat_template_kwargs
+  thinking: "off"
+  timeout: 300.0
+  max_retries: 4
+  concurrency: 8
+  # cache คำตอบตาม hash ของ (model, prompt) — รันซ้ำแล้วไม่เสียโควตา/เวลา
+  cache: true
+  cache_dir: datasets/llm_cache
+
+compile:
+  # ⭐ หัวใจของ hack: ไม่ยิง LLM ทีละแถว (10,264 แถว) แต่ยิงทีละ "ข้อความอำนาจกรรมการ"
+  #    ที่ไม่ซ้ำกัน ซึ่งมีแค่ 308 ข้อความ แล้วเอากฎที่ได้มา evaluate ด้วยโค้ดทุกแถว
+  splits: [train, test]
+  out: models/rules.json
+  # stage B: จับคู่ legal_act ของแต่ละแถวว่าเข้าเงื่อนไขของ branch ไหน
+  # ทำเฉพาะ clause ที่มีหลาย branch แบบมีเงื่อนไข (ไม่งั้นข้าม ประหยัดครึ่งหนึ่ง)
+  scope_stage: true
+  # ให้ LLM ลองใหม่ถ้ากฎที่คอมไพล์ได้ทำ train แถวของ clause นั้นพัง (ใช้ train เท่านั้น)
+  self_repair_rounds: 2
+  # snap ชื่อที่ LLM ถอดออกมาให้ตรงกับรายชื่อกรรมการจริงของ rgno นั้น
+  snap_names: true
+  snap_cutoff: 0.75
+
+evaluate:
+  rules: models/rules.json
+  # เขียนรายงานรายแถวที่ทายพลาดไว้ดูว่ากฎข้อไหนยังเพี้ยน
+  report: models/error_report.csv
+
+predict:
+  rules: models/rules.json
+  out_csv: submissions/submission.csv
+  # ถ้าคอมไพล์กฎของ clause ไหนไม่สำเร็จ ให้เดาด้วยค่านี้ (0 = majority class)
+  fallback: 0
