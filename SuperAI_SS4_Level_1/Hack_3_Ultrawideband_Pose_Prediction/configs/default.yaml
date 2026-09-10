@@ -1,0 +1,94 @@
+# UWB Pose Prediction — default config
+# ปรับค่าใน block ที่ต้องการแล้วส่งเข้าไปด้วย --config <path>
+
+data:
+  # https://www.kaggle.com/competitions/uwb-pose-prediction
+  # ⚠️ ต้องกด accept rules ในเว็บก่อน ไม่งั้น CLI จะขึ้น 403
+  kaggle_slug: uwb-pose-prediction
+  # "dataset" หรือ "competition"
+  kaggle_kind: competition
+  root: datasets            # โฟลเดอร์ปลายทาง (gitignored)
+  # auto = ดูจากไฟล์จริงว่าเป็น wide_csv (1 แถว = 1 sample) หรือ npy_dir (1 ไฟล์ = 1 sample)
+  layout: auto
+  train_csv: train.csv
+  test_csv: test.csv
+  # ใช้เมื่อเป็น npy_dir — ซึ่งเป็น layout ของ competition นี้
+  annotations_csv: annotations.csv
+  classes_csv: classes.csv
+  train_dir: train/train
+  test_dir: test/test
+  # ชื่อคอลัมน์ label / id — ถ้าเป็น null จะเดาจากคอลัมน์ที่มี
+  label_col: class          # ชื่อคอลัมน์ใน annotations.csv / sample_submission.csv
+  id_col: id
+  # คอลัมน์ที่เป็นค่าสัญญาณ: null = ใช้ทุกคอลัมน์ที่เหลือหลังตัด label/id
+  signal_cols: null
+  # จำนวนช่อง (antenna / tag) ที่ interleave อยู่ในหนึ่งแถว — 1 = สัญญาณเส้นเดียว
+  n_channels: 1
+  val_size: 0.2
+  seed: 42
+
+encode:
+  # radar encoders : spectrogram2d | micro_doppler | rti | range_doppler | fft2
+  #                  sgband<k> (spectrogram2d เฉพาะช่วง range ที่ k) | rd_t<k>
+  # generic encoders: raw2d | spectrogram | cwt | gaf | recurrence
+  # stack = เอา 3 encoder มาใส่คนละ channel ของภาพ RGB
+  #
+  # ⭐ spectrogram2d ชนะทุกตัวจากการทดลอง 40+ แบบ (5-fold CV)
+  #    STFT ทีละ range bin แล้วรวม magnitude — ดูหัวข้อผลการทดลองใน README
+  #    หมายเหตุ: มัน "รวม" แกน range ไม่ได้ "เก็บ" ไว้ ซึ่งกลายเป็นข้อดี เพราะตำแหน่ง
+  #    ที่คนยืนเป็นตัวแปรรบกวน ไม่ใช่สัญญาณ (การทดลอง sgband ยืนยันว่าเก็บไว้ก็ไม่ช่วย)
+  method: spectrogram2d
+  stack_methods: [rti, range_doppler, micro_doppler]   # ใช้เมื่อ method: stack
+  img_size: 224
+
+  # --- radar ---
+  n_frames: 2560            # trim/pad slow-time ให้เท่ากันทุก sample
+  range_bins: 56            # จำนวน range bin ของ X4M03
+  clutter_removal: true     # ลบ mean ตามแกนเวลาของแต่ละ range bin (ตัด static reflection)
+  dynamic_range: 80.0       # สัญญาณจริงกินช่วง 41-60 dB ใต้ peak — ค่า 40 ตัดข้อมูลทิ้ง 99% ของตัวอย่าง
+  doppler_crop: 0.25        # crop รอบ zero-Doppler เอาเฉพาะช่วงที่คนเคลื่อนไหวจริง (0 = ไม่ crop)
+  md_nperseg: 128           # STFT window — จูนแล้ว 512/256/128/64 ยอดอยู่ที่ 128
+  md_noverlap: 112
+  rd_windows: 3             # จำนวนช่วงเวลาที่หั่นสำหรับ encoder rd_t0 / rd_t1 / rd_t2
+  # spectrogram
+  nperseg: 64
+  noverlap: 48
+  log_power: true
+  # cwt
+  wavelet: morl
+  n_scales: 64
+  # ทำ cache ภาพที่ encode แล้วลงดิสก์ (เร็วขึ้นมากตอนเทรนหลาย epoch)
+  cache: true
+  cache_dir: datasets/cache
+
+model:
+  # backbone จาก timm — ดู README เรื่อง VRAM ก่อนเปลี่ยน
+  name: maxvit_tiny_tf_224.in1k
+  pretrained: true
+  drop_rate: 0.1
+  drop_path_rate: 0.1
+
+train:
+  epochs: 60                # ต้องยาวขนาดนี้ ยิ่ง mixup แรงยิ่งต้องการ epoch มาก
+  batch_size: 32
+  lr: 3.0e-4
+  weight_decay: 0.05
+  warmup_epochs: 2
+  label_smoothing: 0.05
+  num_workers: 8
+  amp: true                 # mixed precision — จำเป็นบน 16 GB VRAM
+  grad_accum: 1
+  early_stop_patience: 20   # 5 -> 10 -> 20 ให้ 0.887 -> 0.896 -> 0.920 แล้วอิ่มตัว
+  # mixup: alpha ที่ดีที่สุดขึ้นกับความยาวการเทรน — ที่ 25 epochs ยอดอยู่ที่ 0.2 แต่ที่
+  # 60+ epochs ยอดเลื่อนไป 0.4-0.6 (alpha 0.4 เป็นตัวแย่ที่สุดตอนเทรนสั้น ดีที่สุดตอนเทรนยาว)
+  mixup_alpha: 0.4
+  cutmix_alpha: 0.0
+  mix_prob: 0.5
+  folds: 1                  # >1 = stratified k-fold CV (checkpoint ต่อ fold ใช้ทำ ensemble ตอน predict)
+  out_dir: models
+  run_name: null            # null = ตั้งชื่อจาก timestamp
+
+predict:
+  checkpoint: models/best.pt
+  out_csv: submissions/submission.csv
+  batch_size: 64

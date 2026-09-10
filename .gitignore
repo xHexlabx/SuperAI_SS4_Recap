@@ -78,3 +78,30 @@
 /SuperAI_SS4_individual_Hackathon/Hack_5_Sleep_Stages_Classification/submissions
 
 /SuperAI_SS4_Level_3
+# --- Hackathon round 2 (Python-first rebuilds) ---
+# environments & build artifacts
+.venv/
+venv/
+env/
+*.egg-info/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# generated data, caches, checkpoints, outputs
+**/datasets/
+**/cache/
+**/models/
+**/submissions/
+**/runs/
+**/lightning_logs/
+**/wandb/
+*.npy
+*.npz
+*.pt
+*.pth
+*.ckpt
+
+# secrets
+.env
+kaggle.json
