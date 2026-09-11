@@ -27,7 +27,7 @@
 | # | Hackathon | Task | Tools |
 |:-:|---|---|---|
 | 0 | 🍰 [Pre-Hackathon Diabetes Prediction](./SuperAI_SS4_Level_1/Pre_Diabetes_Prediction) | Tabular Classification | AutoGluon |
-| 1 | 🔎 [Image Search](./SuperAI_SS4_Level_1/Hack_1_Image_Search) | Similarity Search | CLIP · PyTorch |
+| 1 | 🔎 [Image Search](./SuperAI_SS4_Level_1/Hack_1_Image_Search) | Zero-shot Retrieval (open-set) | SigLIP 2 · transformers · PyTorch |
 | 2 | 🗃️ [ThaiJO Researcher](./SuperAI_SS4_Level_1/Hack_2_Thaijo_Researcher) | Data Cleaning | pandas · regex |
 | 3 | 🔊 [UWB Pose Prediction](./SuperAI_SS4_Level_1/Hack_3_Ultrawideband_Pose_Prediction) | Signal Classification | timm (MaxViT) · PyTorch |
 | 4 | 💧 [Soil Water Prediction](./SuperAI_SS4_Level_1/Hack_4_Soil_Water_Prediction) | Tabular Regression | AutoGluon |
@@ -89,10 +89,11 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_1/Pre_
 #### Image Search
 
 <p>
- 🔎 ใน Hackathon นี้ เป็น Hackathon เรื่อง <b>Image Search</b> หรือให้อธิบายง่าย ๆ ก็คือ มีข้อมูลที่เป็น <b>รูปภาพ</b> เข้ามาแล้วให้ทายว่ารูปภาพที่เข้ามานั้น <b>คล้ายกับ</b> รูปภาพใดใน folder queries ที่มีให้ คล้าย ๆ งาน Classification แต่เราจะใช้วิธีการที่เรียกว่า <b>Similarity Search</b> ในการตอบคำถามนี้ โดยสามารถติดตามวิธีการได้ใน Repository นี้
+ 🔎 ใน Hackathon นี้ เป็น Hackathon เรื่อง <b>Image Search</b> หรือให้อธิบายง่าย ๆ ก็คือ มีข้อมูลที่เป็น <b>รูปภาพ</b> เข้ามาแล้วให้ทายว่ารูปภาพที่เข้ามานั้น <b>คล้ายกับ</b> รูปภาพใดใน folder queries ที่มีให้ คล้าย ๆ งาน Classification แต่เราจะใช้วิธีการที่เรียกว่า <b>Similarity Search</b> ในการตอบคำถามนี้<br>
+ รอบนี้เขียนใหม่เป็น <b>Python package</b> ที่ benchmark encoder แบบ zero-shot 16 ตัวบน validation ที่สร้างเองจาก <code>train/</code> ประเด็นหลักคือ <b>คอขวดไม่ได้อยู่ที่ backbone แต่อยู่ที่การตัดสินว่า "ไม่ตรงสักอัน"</b> โดยสามารถติดตามวิธีการได้ใน Repository นี้
  </p>
 
-> **Task** : Similarity Search / Image Retrieval &nbsp;|&nbsp; **Tools** : CLIP (`openai/clip-vit-large-patch14`) , PyTorch , transformers
+> **Task** : Zero-shot Logo Retrieval (open-set) &nbsp;|&nbsp; **Tools** : SigLIP 2 (`google/siglip2-base-patch16-384`) , transformers , open_clip , PyTorch
 
 https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_1/Hack_1_Image_Search
 

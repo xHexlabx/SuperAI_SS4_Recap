@@ -1,0 +1,93 @@
+# Image Search — default config
+# แก้ค่าในนี้ หรือ override ชั่วคราวด้วย --set section.key=value
+
+data:
+  # https://www.kaggle.com/competitions/image-search
+  # ⚠️ ต้องกด Join Competition / accept rules ในเว็บก่อน ไม่งั้น CLI จะขึ้น 403
+  kaggle_slug: image-search
+  kaggle_kind: competition
+  root: datasets              # โฟลเดอร์ปลายทาง (gitignored)
+  queries_dir: queries/queries
+  train_dir: train/train
+  test_dir: test/images
+  sample_submission: sample_submission.csv
+  id_col: img_file
+  label_col: class
+  n_classes: 22               # โลโก้ที่ถาม 22 แบบ (คลาส 0..21)
+  unknown_class: 22           # "ไม่ตรงสักอัน"
+
+embed:
+  # ตัวที่ใช้จริงตอน predict — ดูตารางผลการทดลองใน README ก่อนเปลี่ยน
+  models: [siglip2-b16]
+  weights: []                 # ว่าง = ให้น้ำหนักเท่ากันทุกตัว
+  # pad = เติมขอบเป็นจัตุรัสก่อน resize (ไม่ตัดของสำคัญทิ้ง) — ดีกว่า center-crop ชัดเจน
+  views: [pad]
+  pad_color: edge
+  batch_size: 32
+  num_workers: 8
+  amp: true                   # fp16 ตอน inference — จำเป็นถ้าจะรัน bigG บน 16 GB
+  cache_dir: datasets/emb
+  dino_feature: cls+avg       # ใช้เฉพาะโมเดลตระกูล DINO
+
+gallery:
+  # queries   = โลโก้ต้นฉบับ 22 รูป (คลาส 0..21)
+  # train     = โฟลเดอร์ใน train/ ที่ query_map.yaml บอกว่าเป็นแบรนด์เดียวกับ query
+  # negatives = โฟลเดอร์ที่เหลือทั้งหมด ใช้เป็นตัวแทนของคลาส 22 (~2,300 รูป)
+  sources: [queries, train, negatives]
+  query_map: configs/query_map.yaml
+  # max = 1-NN (คลาสหนึ่งมีโลโก้อ้างอิงรูปเดียวอยู่แล้ว) | topk | proto
+  aggregate: max
+  topk: 3
+  # query expansion: เอาภาพที่ทายมั่นใจสุดคลาสละ k รูปกลับเข้า gallery แล้วให้คะแนนใหม่
+  # ตั้งเป็นสัดส่วนของขนาดกอง เพราะ proxy (~2,000 ภาพ) กับ test (1,120 ภาพ) ไม่เท่ากัน
+  expand_frac: 0.33            # 0 = ปิด
+  expand_k: 0                  # เพดานจำนวนคงที่ (0 = ไม่จำกัด)
+  expand_reject: auto          # none = คัด top-k จาก argmax ล้วน | gallery | auto
+  # ข้ามภาพที่ซ้ำกับของเดิมใน gallery ตอนขยาย (1.0 = ไม่ข้าม)
+  # ลองแล้ว 0.98/0.95 แย่ลงชัดเจน — ดูหัวข้อ "ที่ลองแล้วไม่ช่วย" ใน README
+  expand_max_sim: 1.0
+  expand_negatives: false      # ขยายฝั่งคลาส 22 ด้วยไหม (ช่วยโมเดลอื่น แต่ทำให้ siglip2-b16 แย่ลง)
+
+match:
+  # gallery = ใช้รูปจากอีก 151 แบรนด์ที่ไม่ได้ถามเป็นตัวแทนของคลาส 22 ไปเลย
+  # threshold = คะแนนสูงสุดต้องเกินค่าที่จูนมา
+  reject: gallery+threshold
+  auto_threshold: true        # จูน threshold บน validation ก่อน predict ทุกครั้ง
+  threshold: 0.5              # ใช้เมื่อ auto_threshold: false
+  ratio: 1.02                 # ใช้เมื่อ reject มี ratio
+  neg_margin: 0.0
+  # คลาสปกติมีโลโก้อ้างอิงรูปเดียว แต่คลาส 22 มี 2,376 รูป การใช้ max จึงเอนเอียง
+  # และเอนมากขึ้นเรื่อย ๆ ตามขนาด gallery — quantile ไม่โตตามขนาด
+  # 1.0 = max — ลอง quantile ต่ำกว่านี้แล้วไม่ดีขึ้นบน proxy ที่ซื่อสัตย์
+  neg_quantile: 1.0
+  score_norm: none
+
+benchmark:
+  models:
+    - clip-b32                # baseline ที่โจทย์แจกมา
+    - clip-l14                # ตัวที่ notebook รอบเดิมใช้
+    - clip-l14-pooler         # แบบเดียวกับ notebook เดิมเป๊ะ (pooler_output ดิบ)
+    - clip-l14-336
+    - clip-h14-laion
+    - eva02-l14-336
+    - siglip-so400m
+    - siglip2-b16
+    - siglip2-so400m
+    - siglip2-g-opt
+    - clip-bigg-laion
+    - dinov2-b
+    - dinov2-l
+    - dinov2-g
+    - dinov3-b                # gated — ต้องกด accept license บน HF ก่อน
+    - dinov3-l
+  folds: 5                    # จำนวน pseudo-task ที่สุ่มจาก train/ (ดู src/img_search/proxy.py)
+  seed: 42
+  min_images: 4
+  seen_ratio: 0.85            # ที่เหลือ 15% เป็นแบรนด์ที่ validation ไม่เคยเห็นเลย
+  neg_gallery_frac: 0.95      # คุมขนาด negative gallery ของ proxy ให้ใกล้ production (2,376 รูป)
+  objective: balanced         # accuracy | balanced
+  out_json: models/benchmark.json
+
+predict:
+  out_csv: submissions/submission.csv
+  debug_csv: models/predict_debug.csv
