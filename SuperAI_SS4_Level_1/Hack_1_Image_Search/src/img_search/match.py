@@ -172,9 +172,64 @@ def normalise(scores: Scores, mode: str) -> Scores:
     return Scores(z.astype(np.float32), None if neg is None else neg.astype(np.float32))
 
 
-def decide(scores: Scores, *, reject: str, threshold: float, ratio: float,
+def per_class_thresholds(known: np.ndarray, base: float, *, min_gap: float,
+                         min_members: int = 8, hi: float = 0.97,
+                         pool_emb: np.ndarray | None = None,
+                         min_coherence: float = 0.0) -> np.ndarray:
+    """Raise the threshold for individual classes whose low tail is one foreign brand.
+
+    โลโก้อ้างอิงของแต่ละคลาสคุณภาพไม่เท่ากัน threshold เดียวจึงพอดีกับทุกคลาสไม่ได้ —
+    คลาสที่ query คมชัด ภาพที่ตรงจริงเกาะอยู่ 0.94-1.00 ส่วนแบรนด์อื่นที่บังเอิญหน้าตาคล้ายกัน
+    จะเกาะกลุ่มต่ำกว่านั้นอย่างชัดเจน แต่คลาสที่ query เบลอหรือขาวดำ ภาพที่ตรงจริงจะไล่ระดับ
+    ต่อเนื่องลงมาถึง 0.84 การยก threshold จึงต้องทำเป็นรายคลาส และต้องมั่นใจก่อนว่าตัดถูกตัว
+
+    ใช้เงื่อนไขสองชั้น ซึ่งอ่านได้จากข้อมูลที่ไม่มี label ทั้งคู่:
+
+      1. **มีช่องว่าง** — คะแนนของคลาสนั้นแยกเป็นสองก้อนโดยห่างกันเกิน `min_gap`
+      2. **ก้อนล่างเกาะกันแน่น** — รูปในก้อนล่างเหมือน *กันเอง* เกิน `min_coherence`
+
+    ข้อ 2 คือตัวตัดสินจริง: แบรนด์แปลกปลอมที่หลุดเข้ามาจะมาเป็นฝูงของภาพโลโก้เดียวกัน
+    (เหมือนกันเอง ~0.98) ส่วนหางที่ถูกต้องคือโลโก้เวอร์ชันต่าง ๆ ของแบรนด์เดียวกัน
+    (แคมเปญคนละตัว สีคนละแบบ) ซึ่งกระจายกว่ามาก (~0.85) — ถ้าดูแค่ขนาดช่องว่างจะแยกสองกรณีนี้ไม่ออก
+    """
+    n_classes = known.shape[1]
+    best, arg = known.max(axis=1), known.argmax(axis=1)
+    out = np.full(n_classes, base, dtype=np.float64)
+    if min_gap <= 0:
+        return out
+
+    for c in range(n_classes):
+        idx = np.flatnonzero((arg == c) & (best >= base))
+        if len(idx) < min_members:
+            continue
+        order = idx[np.argsort(best[idx])[::-1]]
+        s = best[order]
+        gaps = s[:-1] - s[1:]
+        # จุดตัดต้องอยู่ใต้ `hi` ไม่งั้นจะไปตัดกลุ่มภาพที่แทบเป็นไฟล์เดียวกับ query
+        usable = s[:-1] <= hi
+        if not usable.any():
+            continue
+        i = int(np.flatnonzero(usable)[np.argmax(gaps[usable])])
+        if gaps[i] < min_gap:
+            continue
+        if min_coherence > 0:
+            below = order[i + 1:]
+            if len(below) < 2 or pool_emb is None:
+                continue
+            block = pool_emb[below] @ pool_emb[below].T
+            np.fill_diagonal(block, np.nan)
+            if float(np.nanmean(block)) < min_coherence:
+                continue
+        out[c] = float((s[i] + s[i + 1]) / 2)
+    return out
+
+
+def decide(scores: Scores, *, reject: str, threshold: float | np.ndarray, ratio: float,
            neg_margin: float, unknown_class: int) -> dict[str, np.ndarray]:
-    """Apply the reject rule(s) and return predictions plus the numbers behind them."""
+    """Apply the reject rule(s) and return predictions plus the numbers behind them.
+
+    `threshold` เป็นตัวเลขเดียว หรือเป็น array ยาวเท่าจำนวนคลาสก็ได้ (per-class threshold)
+    """
     known = scores.known
     order = np.argsort(known, axis=1)[:, ::-1]
     best = order[:, 0]
@@ -188,7 +243,8 @@ def decide(scores: Scores, *, reject: str, threshold: float, ratio: float,
 
     rejected = np.zeros(len(known), dtype=bool)
     if "threshold" in rules:
-        rejected |= best_s < threshold
+        thr = np.asarray(threshold)[best] if np.ndim(threshold) else threshold
+        rejected |= best_s < thr
     if "ratio" in rules:
         rejected |= best_s < ratio * second_s
     if "gallery" in rules:

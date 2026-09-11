@@ -73,7 +73,7 @@ def main() -> int:
           fold.val["cls"].nunique() > cfg.data.n_classes)
 
     print("\n[5] scoring + reject rules")
-    scores, truth = benchmark_mod._fold_scores(cfg, fold, cfg.embed.models)
+    scores, truth, _ = benchmark_mod._fold_scores(cfg, fold, cfg.embed.models)
     check("score matrix shape", scores.known.shape == (len(truth), cfg.data.n_classes),
           str(scores.known.shape))
     check("negative gallery produced a score", scores.negative is not None)

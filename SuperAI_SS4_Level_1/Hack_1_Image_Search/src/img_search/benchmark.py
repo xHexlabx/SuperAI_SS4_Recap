@@ -39,11 +39,11 @@ def _reject_auroc(best_known: np.ndarray, truth: np.ndarray, unknown_class: int)
     return float((ranks[: len(pos)].sum() - len(pos) * (len(pos) + 1) / 2) / (len(pos) * len(neg)))
 
 
-def _fold_scores(cfg, fold, keys: list[str]) -> tuple[match_mod.Scores, np.ndarray]:
+def _fold_scores(cfg, fold, keys: list[str]) -> tuple[match_mod.Scores, np.ndarray, np.ndarray]:
     g_emb = get_matrix(cfg, fold.gallery["path"].tolist(), models=keys)
     v_emb = get_matrix(cfg, fold.val["path"].tolist(), models=keys)
     scores = score_pool(cfg, v_emb, g_emb, fold.gallery["cls"].to_numpy())
-    return scores, fold.val["cls"].to_numpy()
+    return scores, fold.val["cls"].to_numpy(), v_emb
 
 
 def score_pool(cfg, pool_emb, gallery_emb, gallery_cls) -> match_mod.Scores:
@@ -90,13 +90,26 @@ def expansion_k(cfg, pool_size: int) -> int:
     return max(int(k), 0)
 
 
-def _threshold_grid(all_scores: list[match_mod.Scores], n: int = 160) -> np.ndarray:
+def _threshold_grid(all_scores, n: int = 160) -> np.ndarray:
     best = np.concatenate([s.known.max(axis=1) for s in all_scores])
     return np.linspace(float(np.percentile(best, 0.5)), float(np.percentile(best, 99.5)), n)
 
 
-def _score_at(cfg, scores, truth, thr: float) -> dict[str, float]:
-    out = match_mod.decide(scores, reject=cfg.match.reject, threshold=thr, ratio=cfg.match.ratio,
+def resolve_threshold(cfg, scores, base: float, pool_emb=None):
+    """Turn the single tuned threshold into a per-class vector when that is switched on."""
+    if cfg.match.per_class_gap <= 0:
+        return base
+    return match_mod.per_class_thresholds(
+        scores.known, base, min_gap=cfg.match.per_class_gap,
+        min_members=cfg.match.per_class_min_members, hi=cfg.match.per_class_hi,
+        pool_emb=pool_emb, min_coherence=cfg.match.per_class_coherence,
+    )
+
+
+def _score_at(cfg, scores, truth, thr: float, pool_emb=None) -> dict[str, float]:
+    out = match_mod.decide(scores, reject=cfg.match.reject,
+                           threshold=resolve_threshold(cfg, scores, thr, pool_emb),
+                           ratio=cfg.match.ratio,
                            neg_margin=cfg.match.neg_margin, unknown_class=cfg.data.unknown_class)
     return match_mod.evaluate(out["pred"], truth, n_classes=cfg.data.n_classes,
                               unknown_class=cfg.data.unknown_class)
@@ -106,27 +119,28 @@ def evaluate_model(cfg, keys: list[str], folds) -> dict[str, float]:
     """Cross-fold metrics for one encoder (or one `a+b` ensemble)."""
     per_fold = [_fold_scores(cfg, f, keys) for f in folds]
     tunable = "threshold" in cfg.match.reject
-    grid = _threshold_grid([s for s, _ in per_fold]) if tunable else np.array([0.0])
+    grid = _threshold_grid([s for s, _, _ in per_fold]) if tunable else np.array([0.0])
     obj = cfg.benchmark.objective
 
     # threshold ที่จะใช้จริงตอน predict: ดีที่สุดเมื่อรวมทุก fold
     curve = np.array([
-        np.mean([_objective(_score_at(cfg, s, t, thr), obj) for s, t in per_fold]) for thr in grid
+        np.mean([_objective(_score_at(cfg, s, t, thr, e), obj) for s, t, e in per_fold])
+        for thr in grid
     ])
     production_threshold = float(grid[int(curve.argmax())])
 
     rows = []
-    for i, (scores, truth) in enumerate(per_fold):
+    for i, (scores, truth, emb) in enumerate(per_fold):
         if tunable and len(folds) > 1:
-            others = [(s, t) for j, (s, t) in enumerate(per_fold) if j != i]
+            others = [x for j, x in enumerate(per_fold) if j != i]
             held = np.array([
-                np.mean([_objective(_score_at(cfg, s, t, thr), obj) for s, t in others])
+                np.mean([_objective(_score_at(cfg, s, t, thr, e), obj) for s, t, e in others])
                 for thr in grid
             ])
             thr = float(grid[int(held.argmax())])
         else:
             thr = production_threshold
-        m = _score_at(cfg, scores, truth, thr)
+        m = _score_at(cfg, scores, truth, thr, emb)
         known = truth != cfg.data.unknown_class
         m["retrieval_acc"] = float((scores.known.argmax(axis=1)[known] == truth[known]).mean())
         m["reject_auroc"] = _reject_auroc(scores.known.max(axis=1), truth, cfg.data.unknown_class)

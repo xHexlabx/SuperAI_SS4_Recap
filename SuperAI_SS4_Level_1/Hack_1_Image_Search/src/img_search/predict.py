@@ -46,10 +46,16 @@ def run(cfg) -> pd.DataFrame:
     test = data_mod.test_index(cfg)
     log.info("encoding %d test images with %s", len(test), "+".join(cfg.embed.models))
 
-    from .benchmark import score_pool
+    from .benchmark import resolve_threshold, score_pool
 
-    scores = score_pool(cfg, get_matrix(cfg, test["path"].tolist()),
-                        get_matrix(cfg, gal.paths), gal.cls)
+    test_emb = get_matrix(cfg, test["path"].tolist())
+    scores = score_pool(cfg, test_emb, get_matrix(cfg, gal.paths), gal.cls)
+    base = threshold
+    threshold = resolve_threshold(cfg, scores, threshold, test_emb)
+    if np.ndim(threshold):
+        raised = {c: round(float(t), 3) for c, t in enumerate(threshold) if t > base + 1e-9}
+        log.info("per-class threshold: base %.4f, raised for %d/%d class(es) %s",
+                 base, len(raised), len(threshold), raised or "(none)")
     out = match_mod.decide(scores, reject=cfg.match.reject, threshold=threshold,
                            ratio=cfg.match.ratio, neg_margin=cfg.match.neg_margin,
                            unknown_class=cfg.data.unknown_class)

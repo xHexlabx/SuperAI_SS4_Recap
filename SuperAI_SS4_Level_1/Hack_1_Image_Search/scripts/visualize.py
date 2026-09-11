@@ -111,7 +111,7 @@ def fig_errors(cfg, n: int = 40) -> None:
                                  min_images=cfg.benchmark.min_images,
                                  seen_ratio=cfg.benchmark.seen_ratio,
                                  neg_gallery_frac=cfg.benchmark.neg_gallery_frac)[0]
-    scores, truth = benchmark_mod._fold_scores(cfg, fold, cfg.embed.models)
+    scores, truth, _ = benchmark_mod._fold_scores(cfg, fold, cfg.embed.models)
     thr = benchmark_mod.evaluate_model(cfg, cfg.embed.models, [fold])["threshold_production"]
     out = match_mod.decide(scores, reject=cfg.match.reject, threshold=thr, ratio=cfg.match.ratio,
                            neg_margin=cfg.match.neg_margin, unknown_class=cfg.data.unknown_class)

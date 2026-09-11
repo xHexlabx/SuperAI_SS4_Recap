@@ -60,6 +60,14 @@ match:
   # และเอนมากขึ้นเรื่อย ๆ ตามขนาด gallery — quantile ไม่โตตามขนาด
   # 1.0 = max — ลอง quantile ต่ำกว่านี้แล้วไม่ดีขึ้นบน proxy ที่ซื่อสัตย์
   neg_quantile: 1.0
+  # per-class threshold: ยก threshold เฉพาะคลาสที่ (1) คะแนนแยกเป็นสองก้อนห่างกันเกิน per_class_gap
+  # และ (2) ก้อนล่างเหมือนกันเองเกิน per_class_coherence คือเป็นแบรนด์แปลกปลอมฝูงเดียว
+  # ดู src/img_search/match.py: per_class_thresholds — บน proxy กฎนี้แทบไม่ทำงาน (ไม่เสียอะไร)
+  # บน test จริงมันทำงานกับคลาสเดียว แล้วตัดโลโก้ธนาคารกรุงเทพ 60 รูปออกจากคลาส 3
+  per_class_gap: 0.04          # 0 = ปิด
+  per_class_min_members: 8
+  per_class_hi: 0.97
+  per_class_coherence: 0.97
   score_norm: none
 
 benchmark:

@@ -97,6 +97,13 @@ class MatchConfig:
     # ค่าต่ำกว่า 1 เป็น quantile ซึ่งไม่โตตามจำนวนรูปในฝั่งลบ
     neg_quantile: float = 1.0
     # ปรับคะแนนก่อนตัดสิน: none | zscore (หักค่าเฉลี่ย/ส่วนเบี่ยงเบนของแต่ละคลาสบน test set)
+    # per-class threshold: ยก threshold ของคลาสที่คะแนนแยกเป็นสองก้อนชัดเจน (0 = ปิด)
+    # ดู match.per_class_thresholds — คุมด้วยขนาดช่องว่างขั้นต่ำ
+    per_class_gap: float = 0.04
+    per_class_min_members: int = 8
+    per_class_hi: float = 0.97
+    # ก้อนล่างต้องเหมือนกันเองเกินค่านี้ถึงจะถือว่าเป็น "แบรนด์แปลกปลอมฝูงเดียว" (0 = ไม่เช็ค)
+    per_class_coherence: float = 0.97
     score_norm: str = "none"
 
 

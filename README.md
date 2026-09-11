@@ -90,7 +90,7 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_1/Pre_
 
 <p>
  🔎 ใน Hackathon นี้ เป็น Hackathon เรื่อง <b>Image Search</b> หรือให้อธิบายง่าย ๆ ก็คือ มีข้อมูลที่เป็น <b>รูปภาพ</b> เข้ามาแล้วให้ทายว่ารูปภาพที่เข้ามานั้น <b>คล้ายกับ</b> รูปภาพใดใน folder queries ที่มีให้ คล้าย ๆ งาน Classification แต่เราจะใช้วิธีการที่เรียกว่า <b>Similarity Search</b> ในการตอบคำถามนี้<br>
- รอบนี้เขียนใหม่เป็น <b>Python package</b> ที่ benchmark encoder แบบ zero-shot 16 ตัวบน validation ที่สร้างเองจาก <code>train/</code> ประเด็นหลักคือ <b>คอขวดไม่ได้อยู่ที่ backbone แต่อยู่ที่การตัดสินว่า "ไม่ตรงสักอัน"</b> โดยสามารถติดตามวิธีการได้ใน Repository นี้
+ รอบนี้เขียนใหม่เป็น <b>Python package</b> ที่ benchmark encoder แบบ zero-shot 16 ตัวบน validation ที่สร้างเองจาก <code>train/</code> ประเด็นหลักคือ <b>คอขวดไม่ได้อยู่ที่ backbone แต่อยู่ที่การตัดสินว่า "ไม่ตรงสักอัน"</b> — public 0.936 → <b>0.961</b> โดยสามารถติดตามวิธีการได้ใน Repository นี้
  </p>
 
 > **Task** : Zero-shot Logo Retrieval (open-set) &nbsp;|&nbsp; **Tools** : SigLIP 2 (`google/siglip2-base-patch16-384`) , transformers , open_clip , PyTorch
