@@ -30,6 +30,9 @@ llm:
   # Qwen3 มี thinking mode ในตัว — off = ตอบ JSON ตรง ๆ (เร็วกว่าและ parse ง่ายกว่า)
   # ใช้ "default" ถ้าปลายทางเป็น API ที่ไม่รู้จัก chat_template_kwargs
   thinking: "off"
+  # ฟิลด์เพิ่มที่ส่งเข้า request body ตรง ๆ (backend บางเจ้ามีพารามิเตอร์ของตัวเอง)
+  # OpenRouter ปิด reasoning ด้วย: --set llm.extra_body='{"reasoning":{"enabled":false}}'
+  extra_body: {}
   timeout: 300.0
   max_retries: 4
   concurrency: 8
@@ -47,11 +50,18 @@ compile:
   scope_stage: true
   # ให้ LLM ลองใหม่ถ้ากฎที่คอมไพล์ได้ทำ train แถวของ clause นั้นพัง (ใช้ train เท่านั้น)
   self_repair_rounds: 2
+  # ⭐ ซ่อมโดยไม่ใช้ label: คนออกโจทย์ไม่เคยถามจำนวนผู้ลงนามเกินกว่าที่ clause รองรับ
+  #    (ยืนยันบน train: จริง 88/95 clause ที่กฎถูก 100%) กฎที่รับจำนวนสูงสุดที่ถูกถามไม่ได้
+  #    จึงผิดแน่นอน และเรารู้ได้โดยไม่ต้องเห็นเฉลย — ใช้กับ test ได้เต็ม ๆ
+  consistency_rounds: 2
   # snap ชื่อที่ LLM ถอดออกมาให้ตรงกับรายชื่อกรรมการจริงของ rgno นั้น
+  # กติกาลายเซ็นที่ repair loop ใช้วัดผล — ต้องตรงกับ predict.semantics
+  semantics: exact
   snap_names: true
   snap_cutoff: 0.75
 
 evaluate:
+  semantics: exact
   rules: models/rules.json
   # เขียนรายงานรายแถวที่ทายพลาดไว้ดูว่ากฎข้อไหนยังเพี้ยน
   report: models/error_report.csv
@@ -59,5 +69,9 @@ evaluate:
 predict:
   rules: models/rules.json
   out_csv: submissions/submission.csv
-  # ถ้าคอมไพล์กฎของ clause ไหนไม่สำเร็จ ให้เดาด้วยค่านี้ (0 = majority class)
+  # ถ้าคอมไพล์กฎของ clause ไหนไม่สำเร็จ ให้เดาด้วยค่านี้
   fallback: 0
+  # exact    = "รวมเป็นสองคน" คือสองคนพอดี เซ็นเกินถือว่าใช้ไม่ได้
+  # at_least = เซ็นเกินได้ ขอแค่มีชุดย่อยที่ตรงกับ branch ใด branch หนึ่ง
+  # train แยกสองแบบนี้ไม่ออก (ต่างกัน 35/4429 แถว) เพราะไม่เคยถามชุดที่เกินจำนวนที่ clause ต้องการ
+  semantics: exact

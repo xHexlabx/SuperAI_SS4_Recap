@@ -12,12 +12,12 @@ import logging
 
 import pandas as pd
 
-from .data import (Committee, clause_table, legal_acts_per_clause, load_committees,
-                   load_patterns, load_split)
+from .data import (Committee, asked_sizes_per_clause, clause_table, legal_acts_per_clause,
+                   load_committees, load_patterns, load_split)
 from .engine import save_rules, score, snap_rule_names
 from .llm import ChatClient
-from .prompts import (RULE_SCHEMA, SCOPE_SCHEMA, compile_messages, repair_messages,
-                      scope_messages)
+from .prompts import (RULE_SCHEMA, SCOPE_SCHEMA, compile_messages, consistency_messages,
+                      repair_messages, scope_messages)
 from .rules import ALWAYS, Branch, ClauseRule
 
 log = logging.getLogger("legal_act.compile")
@@ -134,7 +134,7 @@ def repair(cfg, client: ChatClient, rules: dict[str, ClauseRule], train: pd.Data
     meta = clauses.set_index("clause_id").to_dict("index")
 
     for rnd in range(rounds):
-        stats = score(train, rules, committees)
+        stats = score(train, rules, committees, semantics=cfg.compile.semantics)
         broken = [cid for cid, row in stats["per_clause"].iterrows()
                   if row["acc"] < 1.0 and cid in clause_rows and rules.get(cid, None) is not None]
         log.info("repair round %d: train acc %.4f, %d/%d clauses solved, %d to repair",
@@ -146,7 +146,7 @@ def repair(cfg, client: ChatClient, rules: dict[str, ClauseRule], train: pd.Data
         for cid in broken:
             g = clause_rows[cid]
             from .engine import predict_rows
-            pred = predict_rows(g, rules, committees)
+            pred = predict_rows(g, rules, committees, semantics=cfg.compile.semantics)
             bad = g.loc[pred != g["answer"].astype(int)]
             failures = [
                 {"signers": list(r["signers"]), "legal_act": r["legal_act"],
@@ -191,14 +191,90 @@ def repair(cfg, client: ChatClient, rules: dict[str, ClauseRule], train: pd.Data
                         nb.acts = ob.acts
             # keep the repair only if it is an improvement on this clause
             g = clause_rows[cid]
-            before = score(g, {cid: old}, committees)["accuracy"]
-            after = score(g, {cid: candidate}, committees)["accuracy"]
+            before = score(g, {cid: old}, committees, semantics=cfg.compile.semantics)["accuracy"]
+            after = score(g, {cid: candidate}, committees, semantics=cfg.compile.semantics)["accuracy"]
             if after > before:
                 rules[cid] = candidate
 
-    stats = score(train, rules, committees)
+    stats = score(train, rules, committees, semantics=cfg.compile.semantics)
     log.info("after repair: train acc %.4f, %d/%d clauses solved",
              stats["accuracy"], stats["solved_clauses"], stats["total_clauses"])
+
+
+def consistency_repair(cfg, client: ChatClient, rules: dict[str, ClauseRule],
+                       clauses: pd.DataFrame, asked: dict[str, list[int]],
+                       committees: dict[str, Committee], patterns: dict[int, str],
+                       train: pd.DataFrame | None, rounds: int) -> None:
+    """Repair rules that contradict their own questions — no labels involved.
+
+    The question generator never asks for more signatures than a clause can accept (true for
+    88 of the 95 train clauses whose rule is provably correct), so a rule whose largest total
+    is below the largest set asked has missed a way of signing. That check reads only the test
+    *inputs*, so it fixes test clauses the labelled repair loop can never reach.
+    """
+    meta = clauses.set_index("clause_id").to_dict("index")
+    train_rows = {cid: g for cid, g in train.groupby("clause_id")} if train is not None else {}
+
+    def violating() -> list[str]:
+        out = []
+        for cid, rule in rules.items():
+            if not rule.ok or cid not in asked:
+                continue
+            if max(asked[cid]) > max(b.required for b in rule.branches):
+                out.append(cid)
+        return out
+
+    for rnd in range(rounds):
+        bad = violating()
+        log.info("consistency round %d: %d/%d clauses cannot accept the biggest set asked",
+                 rnd + 1, len(bad), len(rules))
+        if not bad:
+            return
+
+        def build(cid):
+            m = meta[cid]
+            c = committees.get(m["rg"])
+            return consistency_messages(
+                context=m["context"],
+                directors=c.names if c else [],
+                pattern=int(m["pattern"]) if pd.notna(m["pattern"]) else None,
+                template=patterns.get(int(m["pattern"])) if pd.notna(m["pattern"]) else None,
+                conditions=m["conditions"],
+                rule=rules[cid].to_dict(),
+                asked=asked[cid],
+                totals=[b.required for b in rules[cid].branches],
+            )
+
+        replies = client.map_json(bad, build, RULE_SCHEMA, desc=f"consist{rnd + 1}")
+
+        kept = 0
+        for cid, reply in zip(bad, replies):
+            if reply is None:
+                continue
+            try:
+                candidate = _to_rule(cid, rules[cid].rg, reply)
+            except Exception:  # noqa: BLE001
+                continue
+            if not candidate.ok:
+                continue
+            if cfg.compile.snap_names:
+                snap_rule_names(candidate, committees.get(candidate.rg), cfg.compile.snap_cutoff)
+            old = rules[cid]
+            if len(old.branches) == len(candidate.branches):
+                for ob, nb in zip(old.branches, candidate.branches):
+                    if not nb.acts and nb.mode == ob.mode:
+                        nb.acts = ob.acts
+            # the new rule has to actually satisfy the invariant ...
+            if max(asked[cid]) > max(b.required for b in candidate.branches):
+                continue
+            # ... and, where labels exist, it must not make that clause worse
+            g = train_rows.get(cid)
+            if g is not None and score(g, {cid: candidate}, committees, semantics=cfg.compile.semantics)["accuracy"] < \
+                    score(g, {cid: old}, committees, semantics=cfg.compile.semantics)["accuracy"]:
+                continue
+            rules[cid] = candidate
+            kept += 1
+        log.info("consistency round %d: kept %d/%d repairs", rnd + 1, kept, len(bad))
 
 
 def run(cfg) -> dict[str, ClauseRule]:
@@ -218,8 +294,13 @@ def run(cfg) -> dict[str, ClauseRule]:
     if cfg.compile.scope_stage:
         resolve_scopes(cfg, client, rules, clauses, legal_acts_per_clause(list(frames.values())))
 
+    asked = asked_sizes_per_clause(list(frames.values()))
+    if cfg.compile.consistency_rounds > 0:
+        consistency_repair(cfg, client, rules, clauses, asked, committees, patterns,
+                           frames.get("train"), cfg.compile.consistency_rounds)
+
     if "train" in frames:
-        stats = score(frames["train"], rules, committees)
+        stats = score(frames["train"], rules, committees, semantics=cfg.compile.semantics)
         log.info("before repair: train acc %.4f, %d/%d clauses solved",
                  stats["accuracy"], stats["solved_clauses"], stats["total_clauses"])
         if cfg.compile.self_repair_rounds > 0:

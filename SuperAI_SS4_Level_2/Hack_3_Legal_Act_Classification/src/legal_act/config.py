@@ -36,6 +36,9 @@ class LLMConfig:
     # Qwen3 มี thinking mode ในตัว — "off" ให้ตอบ JSON ตรง ๆ (เร็วกว่ามาก),
     # "on" ให้คิดก่อนตอบ, "default" = ไม่ส่ง flag (สำหรับ API ที่ไม่รู้จักคีย์นี้)
     thinking: str = "off"
+    # ส่งฟิลด์เพิ่มเข้า request body ตรง ๆ สำหรับ backend ที่มีพารามิเตอร์เฉพาะตัว
+    # เช่น OpenRouter ปิด reasoning ด้วย {"reasoning": {"enabled": false}}
+    extra_body: dict = field(default_factory=dict)
     timeout: float = 300.0
     max_retries: int = 4
     concurrency: int = 8
@@ -49,6 +52,10 @@ class CompileConfig:
     out: str = "models/rules.json"
     scope_stage: bool = True
     self_repair_rounds: int = 2
+    # ซ่อมกฎที่ขัดกับจำนวนผู้ลงนามที่ถูกถาม — ไม่ใช้ label จึงใช้กับ test ได้
+    consistency_rounds: int = 2
+    # กติกาลายเซ็นที่ใช้ตอนวัดผลใน repair loop — ต้องตรงกับ predict.semantics
+    semantics: str = "exact"
     snap_names: bool = True
     snap_cutoff: float = 0.75
 
@@ -57,6 +64,7 @@ class CompileConfig:
 class EvaluateConfig:
     rules: str = "models/rules.json"
     report: str = "models/error_report.csv"
+    semantics: str = "exact"
 
 
 @dataclass
@@ -64,6 +72,8 @@ class PredictConfig:
     rules: str = "models/rules.json"
     out_csv: str = "submissions/submission.csv"
     fallback: int = 0
+    # exact = ลายเซ็นต้องครบพอดี | at_least = เซ็นเกินได้ (ดู decide() ใน rules.py)
+    semantics: str = "exact"
 
 
 @dataclass

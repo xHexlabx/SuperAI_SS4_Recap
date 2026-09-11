@@ -234,3 +234,37 @@ def repair_messages(context: str, directors: Sequence[str], pattern: int | None,
         {"role": "system", "content": REPAIR_SYSTEM},
         {"role": "user", "content": "\n".join(lines)},
     ]
+
+
+CONSISTENCY_SYSTEM = COMPILE_SYSTEM + """\
+
+You are now FIXING a rule that contradicts the questions being asked about its clause.
+
+The people who wrote the questions never ask for more signatures than the clause can accept:
+if a clause is asked about a set of three signers, the clause has some way of being signed by
+exactly three people. So when your rule's largest "total" is smaller than the largest set
+asked about, your rule has MISSED a way of signing — usually a branch further down the clause,
+a group combination you did not expand, or a "รวมเป็น x คน" you read as a smaller number.
+
+Re-read the clause and return a corrected rule that includes a branch for every signature
+count listed. Keep the branches that are already right. Output the JSON object only.
+"""
+
+
+def consistency_messages(context: str, directors: Sequence[str], pattern: int | None,
+                         template: str | None, conditions: Sequence[str],
+                         rule: dict, asked: Sequence[int], totals: Sequence[int]) -> list[dict[str, str]]:
+    lines = [compile_user(context, directors, pattern, template, conditions)]
+    lines.append("")
+    lines.append("RULE ที่คุณให้มารอบก่อน:")
+    lines.append(json.dumps(rule, ensure_ascii=False, indent=1))
+    lines.append("")
+    lines.append(f"คำถามที่ถูกถามกับ clause นี้ มีชุดผู้ลงนามขนาด {list(asked)} คน")
+    lines.append(f"แต่กฎของคุณรับได้แค่ {sorted(set(totals))} คน")
+    lines.append(f"=> clause นี้ต้องมีทางเซ็นด้วยผู้ลงนาม {max(asked)} คนพอดี อย่างน้อยหนึ่งทาง")
+    lines.append("")
+    lines.append("Return the corrected JSON rule now.")
+    return [
+        {"role": "system", "content": CONSISTENCY_SYSTEM},
+        {"role": "user", "content": "\n".join(lines)},
+    ]

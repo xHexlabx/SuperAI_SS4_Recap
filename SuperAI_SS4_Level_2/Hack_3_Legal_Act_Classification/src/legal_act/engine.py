@@ -25,21 +25,23 @@ def director_keys(committees: dict[str, Committee], rg: str) -> set[str]:
 
 
 def predict_rows(df: pd.DataFrame, rules: dict[str, ClauseRule],
-                 committees: dict[str, Committee], fallback: int = 0) -> pd.Series:
+                 committees: dict[str, Committee], fallback: int = 0,
+                 semantics: str = "exact") -> pd.Series:
     preds = []
     for cid, rg, signers, act in zip(df["clause_id"], df["rg"], df["signers"], df["legal_act"]):
         rule = rules.get(cid)
         if rule is None or not rule.ok:
             preds.append(fallback)
             continue
-        preds.append(int(decide(rule, signers, act, director_keys(committees, rg))))
+        preds.append(int(decide(rule, signers, act, director_keys(committees, rg), semantics)))
     return pd.Series(preds, index=df.index, name="answer")
 
 
 def score(df: pd.DataFrame, rules: dict[str, ClauseRule],
-          committees: dict[str, Committee], fallback: int = 0) -> dict:
+          committees: dict[str, Committee], fallback: int = 0,
+          semantics: str = "exact") -> dict:
     """Accuracy overall and per clause, plus the rows that are still wrong."""
-    pred = predict_rows(df, rules, committees, fallback)
+    pred = predict_rows(df, rules, committees, fallback, semantics)
     truth = df["answer"].astype(int)
     hit = pred == truth
     per_clause = (
@@ -53,6 +55,7 @@ def score(df: pd.DataFrame, rules: dict[str, ClauseRule],
     wrong["pred"] = pred[~hit]
     return {
         "accuracy": float(hit.mean()),
+        "macro_f1": macro_f1(truth, pred),
         "n": int(len(df)),
         "per_clause": per_clause,
         "wrong": wrong,
@@ -61,6 +64,22 @@ def score(df: pd.DataFrame, rules: dict[str, ClauseRule],
         "missing_rules": int(sum(1 for c in df["clause_id"].unique()
                                  if c not in rules or not rules[c].ok)),
     }
+
+
+def macro_f1(truth: pd.Series, pred: pd.Series) -> float:
+    """The competition scores macro-F1, not accuracy.
+
+    Two probe submissions pin it down: an all-zero file scores 0.29597 and an all-one file
+    0.36692. Those sum to 0.663, so the metric cannot be accuracy; solving p/(1+p) = 0.36692
+    gives a positive rate of 0.5796, and (1-p)/(2-p) then reproduces 0.29597 exactly.
+    """
+    out = []
+    for cls in (0, 1):
+        tp = int(((pred == cls) & (truth == cls)).sum())
+        fp = int(((pred == cls) & (truth != cls)).sum())
+        fn = int(((pred != cls) & (truth == cls)).sum())
+        out.append(0.0 if tp == 0 else 2 * tp / (2 * tp + fp + fn))
+    return float(sum(out) / 2)
 
 
 def save_rules(rules: dict[str, ClauseRule], path: str | Path) -> Path:

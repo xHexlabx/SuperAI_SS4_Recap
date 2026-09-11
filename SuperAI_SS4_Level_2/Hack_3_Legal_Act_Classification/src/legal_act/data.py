@@ -168,3 +168,17 @@ def legal_acts_per_clause(frames: list[pd.DataFrame]) -> dict[str, list[str]]:
     """Every distinct legal_act a clause is asked about — the input to the scope stage."""
     allrows = pd.concat([df[["clause_id", "legal_act"]] for df in frames], ignore_index=True)
     return {cid: sorted(set(g)) for cid, g in allrows.groupby("clause_id")["legal_act"]}
+
+
+def asked_sizes_per_clause(frames: list[pd.DataFrame]) -> dict[str, list[int]]:
+    """How many signatures each clause is actually asked about, across every split.
+
+    This is a property of the *questions*, not of the answers, so it is fair to use on test.
+    It turns out to pin the clause down hard: on the train clauses whose rule is provably
+    right, the largest signature set ever asked equals the largest the clause allows, in
+    88 of 95 cases — the question generator never asks for more signatures than the clause
+    can accept. A rule that cannot accept the biggest set asked is therefore wrong, and we
+    can know that without looking at a single label.
+    """
+    allrows = pd.concat([df[["clause_id", "signers"]] for df in frames], ignore_index=True)
+    return {cid: sorted({len(v) for v in g}) for cid, g in allrows.groupby("clause_id")["signers"]}

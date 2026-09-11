@@ -15,6 +15,7 @@ Making the count *exact* matters — "รวมเป็นสองคน" is n
 
 from __future__ import annotations
 
+import itertools
 from dataclasses import dataclass, field
 from typing import Any, Iterable
 
@@ -73,7 +74,14 @@ class Branch:
         return slots
 
     def applies_to(self, legal_act: str) -> bool:
-        if self.mode == ALWAYS:
+        """Is this branch usable for this kind of legal act?
+
+        An "only" branch whose scope was never resolved carries no information, so it is left
+        unrestricted rather than switched off. Switching it off is a guess that the branch can
+        never be used — the most destructive guess available, and on this data it silently
+        removed 31 clauses' worth of valid ways to sign.
+        """
+        if self.mode == ALWAYS or not self.acts:
             return True
         listed = legal_act in self.acts
         return listed if self.mode == ONLY else not listed
@@ -181,10 +189,26 @@ def branch_allows(branch: Branch, signers: Iterable[str], directors: set[str]) -
     return _match_all(candidates, len(slots))
 
 
-def decide(rule: ClauseRule, signers: Iterable[str], legal_act: str, directors: set[str]) -> bool:
-    """A row is allowed when at least one branch in scope accepts the signature set."""
+def decide(rule: ClauseRule, signers: Iterable[str], legal_act: str, directors: set[str],
+           semantics: str = "exact") -> bool:
+    """A row is allowed when at least one branch in scope accepts the signature set.
+
+    `semantics` decides what an EXTRA signature means:
+      exact    — "รวมเป็นสองคน" means two, so a third signer invalidates the set.
+      at_least — extra signatures are harmless; some subset of the signers must satisfy a branch.
+
+    Train cannot tell these apart (they disagree on 35 of 4,429 rows, 19-16 in favour of
+    at_least) because its questions never ask for more signers than a clause needs. Test asks
+    such questions constantly, so the choice matters there and only there.
+    """
     signers = list(signers)
-    return any(
-        branch.applies_to(legal_act) and branch_allows(branch, signers, directors)
-        for branch in rule.branches
-    )
+    for branch in rule.branches:
+        if not branch.applies_to(legal_act):
+            continue
+        if branch_allows(branch, signers, directors):
+            return True
+        if semantics == "at_least" and len(signers) > branch.required:
+            for subset in itertools.combinations(signers, branch.required):
+                if branch_allows(branch, subset, directors):
+                    return True
+    return False

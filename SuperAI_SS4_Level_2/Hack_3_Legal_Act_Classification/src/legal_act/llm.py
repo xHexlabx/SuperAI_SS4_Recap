@@ -47,7 +47,8 @@ class ChatClient:
     def _key(self, messages: Messages, schema: dict | None = None) -> str:
         blob = json.dumps(
             {"model": self.cfg.model, "t": self.cfg.temperature,
-             "think": self.cfg.thinking, "schema": schema, "messages": messages},
+             "think": self.cfg.thinking, "extra": self.cfg.extra_body,
+             "schema": schema, "messages": messages},
             ensure_ascii=False, sort_keys=True,
         )
         return hashlib.sha1(blob.encode("utf-8")).hexdigest()
@@ -84,6 +85,8 @@ class ChatClient:
         }
         if self.cfg.thinking in ("on", "off"):
             payload["chat_template_kwargs"] = {"enable_thinking": self.cfg.thinking == "on"}
+        if self.cfg.extra_body:
+            payload.update(self.cfg.extra_body)
         if schema is not None:
             payload["response_format"] = {
                 "type": "json_schema",

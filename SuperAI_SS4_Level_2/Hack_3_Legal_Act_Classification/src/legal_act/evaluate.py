@@ -18,7 +18,8 @@ def run(cfg) -> dict:
     committees = load_committees(cfg)
     rules = load_rules(cfg.resolve(cfg.evaluate.rules))
 
-    stats = score(train, rules, committees)
+    stats = score(train, rules, committees, semantics=cfg.evaluate.semantics)
+    log.info("train macro-F1 : %.4f   <-- the metric the competition scores", stats["macro_f1"])
     log.info("train accuracy : %.4f  (%d rows)", stats["accuracy"], stats["n"])
     log.info("clauses solved : %d/%d", stats["solved_clauses"], stats["total_clauses"])
     if stats["missing_rules"]:

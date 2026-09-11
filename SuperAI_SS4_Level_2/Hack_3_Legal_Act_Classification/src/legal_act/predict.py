@@ -25,7 +25,8 @@ def run(cfg) -> "pd.DataFrame":
                     len(missing), cfg.predict.fallback,
                     int(test["clause_id"].isin(missing).sum()))
 
-    pred = predict_rows(test, rules, committees, fallback=cfg.predict.fallback)
+    pred = predict_rows(test, rules, committees, fallback=cfg.predict.fallback,
+                        semantics=cfg.predict.semantics)
     sub = pd.DataFrame({"id": test["id"], "answer": pred.astype(int)})
 
     out = cfg.resolve(cfg.predict.out_csv)
