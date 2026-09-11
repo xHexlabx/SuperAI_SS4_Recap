@@ -41,7 +41,7 @@
 | 1 | 💬 [Image Captioning](./SuperAI_SS4_Level_2/Hack_1_Image_Captioning) | Vision-Language | BLIP-2 · transformers |
 | 2 | 📄 [Table Question Answering](./SuperAI_SS4_Level_2/Hack_2_Table_Question_Answering) | LLM Agent | LangChain · GPT-4o |
 | 3 | ⚖️ [Legal Act Classification](./SuperAI_SS4_Level_2/Hack_3_Legal_Act_Classification) | Rule Reasoning (LLM) | Qwen3.8 · OpenRouter · rule engine |
-| 4 | 🧠 [Brain Motor Imagery](./SuperAI_SS4_Level_2/Hack_4_Brain_Motor_Imagery) | EEG Signal Classification | scipy · PyTorch |
+| 4 | 🧠 [Brain Motor Imagery](./SuperAI_SS4_Level_2/Hack_4_Brain_Motor_Imagery) | EEG Signal Classification (cross-subject) | MNE · pyRiemann · braindecode |
 | 5 | 💸 [Home Credit Risk 🚧](./SuperAI_SS4_Level_2/Hack_5_Home_Credit_Risk) | Tabular Classification | — |
 | 6 | 🏥 [Liver Ultrasound Detection](./SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection) | Medical Image Classification | Lightning ⚡ · MaxViT |
 | 7 | 🌏 [Forest Type Classification](./SuperAI_SS4_Level_2/Hack_7_Forest_Type_Classification) | Tabular Classification | AutoGluon · CatBoost · XGBoost |
@@ -195,8 +195,9 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack
  🧠 ใน Hackathon นี้ นับเป็น Hackathon ที่ยากลำบากที่สุด เนื่องจาก Data ที่ได้รับมาใช้งานยากมาก มี Noise และมีรูปแบบที่มองยาก นับเป็น Hackathon ที่มีความยากด้าน Technical มากที่สุด โดยในงานนี้เราได้รับบทเป็นคุณหมอที่จะต้อง Classified ว่าหากมีสัญญาณสมองที่ได้รับมาตามนี้ ๆ ผู้ทดสอบกำลังคิดว่าเคลื่อนที่ไปทาง ซ้าย - ขวา หรือ Resting โดยสามารถติดตามวิธีการได้ใน Repository นี้
 </p>
 
-> **Task** : EEG Signal Classification &nbsp;|&nbsp; **Tools** : scipy (filtering) , PyTorch , torchmetrics<br>
-> **ไฟล์ในโฟลเดอร์** : `hack4_preprocess.ipynb` (ทำความสะอาด + ตัด chunk สัญญาณ) , `hack4_visualize-2.ipynb` (Plot สัญญาณ + เทรนโมเดล)
+> **Task** : EEG Signal Classification (3 คลาส, cross-subject) &nbsp;|&nbsp; **Tools** : MNE , pyRiemann , braindecode , PyTorch<br>
+> **รอบเดิม** : `hack4_preprocess.ipynb` + `hack4_visualize-2.ipynb` (Colab, EEGNet) ได้ 0.315 บน leaderboard ขณะ baseline ผู้จัด 0.565<br>
+> **รอบใหม่ (2026)** : rebuild เป็น Python package (MNE · pyRiemann · braindecode) — EDA พบว่า test คือคนใหม่ 2 คน และเครื่องคือ Unicorn Hybrid Black 8 ช่อง · Riemannian covariance + alignment ต่อ session ได้ **0.638 public / 0.607 private** ด้วย EEG ล้วน ชนะ baseline ผู้จัด 0.565 และทุกทีมในรอบเดิม · รายละเอียด ablation 56 แบบใน README ของโฟลเดอร์
 
 https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Level_2/Hack_4_Brain_Motor_Imagery
 

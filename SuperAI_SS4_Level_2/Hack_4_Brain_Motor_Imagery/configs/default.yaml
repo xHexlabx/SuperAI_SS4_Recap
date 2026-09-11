@@ -1,0 +1,61 @@
+# Brain Motor Imagery — default config. Override anything with: make train SET='--set model.name=eegnet'
+data:
+  root: datasets
+  cache_dir: datasets/cache
+
+preprocess:
+  highpass_hz: 0.5
+  notch_hz: [50, 100]
+  bandpass_hz: [8, 30]
+  filter_order: 4
+  pad_seconds: 2.0          # reflect-pad each 7 s trial before filtfilt (same path for train/app/test)
+  resample_hz: 125
+  window_s: [0.5, 3.5]      # after cue — the task window found in the EDA
+  clip_sigma: 0             # 0 = off
+  channels: null            # null = all 8
+
+align:
+  method: euclidean         # none | euclidean | riemann
+  train_group: sess         # reference covariance per recording session
+  test_group: cluster       # cluster test trials by covariance (k=2); 'counter' uses the device counter, 'global' = one group
+  n_clusters: 2
+  cov_window: full          # reference covariance from the full 7 s trial
+
+cv:
+  scheme: subject           # GroupKFold by subject — the test set is two unseen people
+  n_folds: 5
+  eval_application: true    # score on train_application (another unseen session)
+  test_oracle: true         # score on test vs cue-order labels (leak found in EDA) — reporting only
+  full_fit: true
+  include_application: false
+
+model:
+  name: ts_lr               # ts_lr | fbts_lr | csp_lr | eegnet | shallow | conformer | atcnet | eegnex
+  hierarchical: false
+  lr_C: 1.0
+  bands: [[4, 8], [8, 13], [13, 20], [20, 30]]
+  csp_filters: 6
+  epochs: 60
+  batch_size: 64
+  lr: 0.001
+  weight_decay: 0.01
+  drop_prob: 0.5
+  label_smoothing: 0.1
+  n_seeds: 1
+  aug_shift: 12
+  aug_scale: 0.1
+  aug_noise: 0.05
+  aug_channel_dropout: 0.0
+  aug_reflect: false
+  aug_freq_shift_hz: 0.0
+  mixup_alpha: 0.0
+
+train:
+  out_dir: models
+  run_name: null
+  seed: 42
+
+predict:
+  runs: []                  # empty = latest run
+  source: full              # full | folds | both
+  out_csv: submissions/submission.csv
