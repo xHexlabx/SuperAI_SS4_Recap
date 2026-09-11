@@ -72,10 +72,14 @@ def compile_clauses(cfg, client: ChatClient, clauses: pd.DataFrame,
 
 def resolve_scopes(cfg, client: ChatClient, rules: dict[str, ClauseRule],
                    clauses: pd.DataFrame, acts_by_clause: dict[str, list[str]]) -> None:
-    """Stage B — decide which legal acts each conditional branch covers.
+    """Stage B — decide which legal acts each carved-out situation covers.
 
-    Only clauses that actually have a conditional branch go through this, which is roughly a
-    third of them; the rest are answered by their single always-on rule.
+    Resolved once per DISTINCT scope text, not once per branch: an "except" branch and its
+    "only" twin share a scope, and asking about them separately let the model answer them
+    differently (one clause came back with 1 act on the "only" side and 22 on the "except"
+    side — the general rule was switched off for 21 acts nobody had excluded). After the model
+    answers, `_harmonise` makes every "except" branch exclude exactly what the "only" branches
+    claim, which is what an exception means.
     """
     ctx_by_id = dict(zip(clauses["clause_id"], clauses["context"]))
     jobs = []
@@ -83,19 +87,17 @@ def resolve_scopes(cfg, client: ChatClient, rules: dict[str, ClauseRule],
         if not rule.ok or not rule.needs_scope:
             continue
         acts = acts_by_clause.get(cid, [])
-        if not acts:
+        scopes = sorted({b.scope.strip() for b in rule.branches if b.mode != ALWAYS and b.scope.strip()})
+        if not acts or not scopes:
             continue
-        idx = [i for i, b in enumerate(rule.branches) if b.mode != ALWAYS]
-        jobs.append({"clause_id": cid, "acts": acts, "branch_idx": idx})
+        jobs.append({"clause_id": cid, "acts": acts, "scopes": scopes})
 
     if not jobs:
         log.info("stage B: no conditional clause to resolve")
         return
 
     def build(job):
-        rule = rules[job["clause_id"]]
-        brief = [{"index": i, "mode": rule.branches[i].mode, "scope": rule.branches[i].scope}
-                 for i in job["branch_idx"]]
+        brief = [{"index": i, "scope": sc} for i, sc in enumerate(job["scopes"])]
         return scope_messages(ctx_by_id[job["clause_id"]], brief, job["acts"])
 
     replies = client.map_json(jobs, build, SCOPE_SCHEMA, desc="scope  ")
@@ -103,12 +105,13 @@ def resolve_scopes(cfg, client: ChatClient, rules: dict[str, ClauseRule],
     resolved = 0
     for job, raw in zip(jobs, replies):
         rule = rules[job["clause_id"]]
-        acts = job["acts"]
+        acts, scopes = job["acts"], job["scopes"]
         if raw is None:
             continue
+        acts_of_scope: dict[str, list[str]] = {}
         for item in raw.get("branches", []):
             i = int(item.get("index", -1))
-            if not 0 <= i < len(rule.branches):
+            if not 0 <= i < len(scopes):
                 continue
             picked = []
             for a in item.get("acts", []):
@@ -116,9 +119,31 @@ def resolve_scopes(cfg, client: ChatClient, rules: dict[str, ClauseRule],
                     picked.append(acts[int(a) - 1])
                 elif isinstance(a, str) and a in acts:
                     picked.append(a)
-            rule.branches[i].acts = sorted(set(picked))
+            acts_of_scope[scopes[i]] = sorted(set(picked))
+        for b in rule.branches:
+            if b.mode != ALWAYS and b.scope.strip() in acts_of_scope:
+                b.acts = list(acts_of_scope[b.scope.strip()])
         resolved += 1
+
+    for rule in rules.values():
+        if rule.ok:
+            _harmonise(rule)
     log.info("stage B: resolved scopes for %d/%d conditional clauses", resolved, len(jobs))
+
+
+def _harmonise(rule: ClauseRule) -> None:
+    """An "except" branch withdraws the general rule exactly where an "only" branch takes over."""
+    from .rules import EXCEPT, ONLY
+
+    only_acts: set[str] = set()
+    for b in rule.branches:
+        if b.mode == ONLY:
+            only_acts.update(b.acts)
+    if not only_acts:
+        return
+    for b in rule.branches:
+        if b.mode == EXCEPT:
+            b.acts = sorted(only_acts)
 
 
 def repair(cfg, client: ChatClient, rules: dict[str, ClauseRule], train: pd.DataFrame,

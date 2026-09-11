@@ -1,14 +1,15 @@
-"""Union two or more compiled rule sets into one submission.
+"""Combine two or more compiled rule sets into one submission.
 
-    uv run python scripts/ensemble.py models/rules_a.json models/rules_b.json \
-        --out submissions/union.csv
+    uv run python scripts/ensemble.py models/rules_flash_v6.json models/rules_27b_v2.json \
+        models/rules.json --mode vote --min-votes 2 --out submissions/vote.csv
 
-A row is answered 1 when ANY rule set accepts it. That is the right direction here because the
-rules are lopsided: reading the score back out of the leaderboard gives precision 97.8% and
-recall 85.7%, so almost every 1 we produce is correct and almost every mistake is a valid
-signature we failed to allow. Taking the union trades a little of the precision we have plenty
-of for the recall we are short of, and it beat either rule set alone (0.9137 / 0.9218 against
-0.9017 / 0.9043 for the better single model).
+Which combination is right depends on which way the rules are currently wrong, and the
+leaderboard tells you: solve the macro-F1 back into precision/recall (see README).
+  * recall is the bottleneck (few false 1s, many missed 1s)  -> union: 1 if ANY set says 1.
+    That was the case before the prompt rewrite (P 0.978 / R 0.857) and union gave +0.012.
+  * precision is the bottleneck (false 1s outnumber misses)  -> vote or intersect.
+    After the rewrite (P 0.954 / R 0.985) a 2-of-3 vote scored 0.9731 / 0.9778 against
+    0.9504 / 0.9629 for the best single set.
 """
 
 from __future__ import annotations
@@ -32,7 +33,8 @@ def main() -> int:
     p.add_argument("rules", nargs="+", help="two or more rules.json files")
     p.add_argument("--out", default="submissions/union.csv")
     p.add_argument("--semantics", default="at_least", choices=["exact", "at_least"])
-    p.add_argument("--mode", default="union", choices=["union", "intersect"])
+    p.add_argument("--mode", default="union", choices=["union", "intersect", "vote"])
+    p.add_argument("--min-votes", type=int, default=2, help="for --mode vote: 1s needed to answer 1")
     args = p.parse_args()
 
     setup_logging()
@@ -41,19 +43,20 @@ def main() -> int:
     train = load_split(cfg, "train")
     test = load_split(cfg, "test")
 
-    combined_tr = combined_te = None
+    votes_tr = votes_te = None
     for path in args.rules:
         rules = load_rules(cfg.resolve(path))
-        ptr = predict_rows(train, rules, committees, semantics=args.semantics)
-        pte = predict_rows(test, rules, committees, semantics=args.semantics)
+        ptr = predict_rows(train, rules, committees, semantics=args.semantics).astype(int)
+        pte = predict_rows(test, rules, committees, semantics=args.semantics).astype(int)
         print(f"{Path(path).name:28} train macro-F1 {macro_f1(train['answer'].astype(int), ptr):.4f}"
               f"   test answer=1 {pte.mean():.4f}")
-        if combined_tr is None:
-            combined_tr, combined_te = ptr, pte
-        elif args.mode == "union":
-            combined_tr, combined_te = combined_tr | ptr, combined_te | pte
-        else:
-            combined_tr, combined_te = combined_tr & ptr, combined_te & pte
+        votes_tr = ptr if votes_tr is None else votes_tr + ptr
+        votes_te = pte if votes_te is None else votes_te + pte
+
+    n = len(args.rules)
+    need = {"union": 1, "intersect": n, "vote": args.min_votes}[args.mode]
+    combined_tr = (votes_tr >= need).astype(int)
+    combined_te = (votes_te >= need).astype(int)
 
     print(f"{args.mode:28} train macro-F1 "
           f"{macro_f1(train['answer'].astype(int), combined_tr):.4f}"

@@ -129,6 +129,22 @@ HOW TO READ THE COMMON WORDINGS
 * ตราประทับของบริษัท (the company seal) is not a person: it never becomes a slot and never
   changes "total".
 
+THREE THINGS THE ANSWER KEY DOES THAT THE TEXT DOES NOT ALWAYS SAY
+
+* GROUP TEMPLATES. When the PATTERN HINT is a per-group template — "กรรมการ x คนจากแต่ละกลุ่ม
+  รวมเป็น y คน", "กรรมการหนึ่งคนจากกลุ่ม 1 ลงลายมือชื่อร่วมกับกรรมการหนึ่งคนจากกลุ่ม 2 และอีกหนึ่งคน
+  จากกลุ่ม 3" — the answer key takes ONE signer from EACH group, total = number of groups, even
+  when the clause's own counting words are garbled ("ให้กรรมการสองในสามกลุ่มลงลายมือชื่อร่วมกัน
+  รวมเป็น 2 คน" with three groups still means one from each of the three groups, total 3).
+  Do not enumerate "two of the three groups" pairs for these templates.
+* PAIRED SCOPES. An exception produces an "except" branch and an "only" branch, and both must
+  carry the IDENTICAL "scope" string, copied from the clause. Never leave the "except" branch's
+  scope empty — an empty scope cannot be matched to legal acts later.
+* ADDITIONS ARE NOT EXCEPTIONS. "นอกจากผู้มีอำนาจตาม (1) แล้ว ให้ นาย ก. ลงลายมือชื่อ...",
+  "ให้ นาย ก. ... ได้ด้วย", "อีกทั้งให้..." ADD a way of signing for that situation without
+  withdrawing the general rule. Then the general branches stay "always" and the added branch is
+  "only". Only "เว้นแต่ / ยกเว้น / ไม่รวมถึง" withdraw the general rule (mode "except").
+
 OTHER RULES
 
 * Write every person's name EXACTLY as it appears in the DIRECTORS list given to you, without
@@ -137,6 +153,65 @@ OTHER RULES
 * Enumerate every branch the clause allows. Missing a branch makes valid signatures look
   invalid; inventing one does the opposite.
 * Output the JSON object only. No explanation, no markdown fence.
+
+WORKED EXAMPLES (real clauses; every rule below is verified against the answer key)
+
+Example 1 — two named groups, two ways of signing
+DIRECTORS: ปฏิภัทธิ์ อุคำ, ณัฐกานต์ โคตรยอด, สุวรรณี เตชะอักษร, ธันยธรณ์ อิทธิอนุวัตร์, ตรรกพล ตันธวัช,
+จีระศักดิ์ อนันต๊ะ, อติกันต์ พยุงทอง, สิทธิโชค โสมอ่ำ
+CLAUSE: กลุ่ม (ก) 1. นายปฏิภัทธิ์ อุคำ2.นายณัฐกานต์ โคตรยอด 3. นางสาวสุวรรณี เตชะอักษร 4. นายธันยธรณ์
+อิทธิอนุวัตร์กลุ่ม (ข) 1.นายตรรกพล ตันธวัช 2.นายจีระศักดิ์ อนันต๊ะ 3.นายอติกันต์ พยุงทอง4.นางสาวสิทธิโชค
+โสมอ่ำ กรรมการกลุ่ม (ก) สองคนลงลายมือชื่อร่วมกันและประทับตราสำคัญของบริษัท หรือ กรรมการคนใดคนหนึ่งของ
+กลุ่ม (ก) ลงลายมือชื่อร่วมกับกรรมการคนใดคนหนึ่งของกลุ่ม (ข) รวมเป็นสองคนและประทับตราสำคัญของบริษัท
+{"branches": [
+ {"mode": "always", "scope": "", "total": 2, "slots": [
+   {"names": ["ปฏิภัทธิ์ อุคำ", "ณัฐกานต์ โคตรยอด", "สุวรรณี เตชะอักษร", "ธันยธรณ์ อิทธิอนุวัตร์"]},
+   {"names": ["ปฏิภัทธิ์ อุคำ", "ณัฐกานต์ โคตรยอด", "สุวรรณี เตชะอักษร", "ธันยธรณ์ อิทธิอนุวัตร์"]}]},
+ {"mode": "always", "scope": "", "total": 2, "slots": [
+   {"names": ["ปฏิภัทธิ์ อุคำ", "ณัฐกานต์ โคตรยอด", "สุวรรณี เตชะอักษร", "ธันยธรณ์ อิทธิอนุวัตร์"]},
+   {"names": ["ตรรกพล ตันธวัช", "จีระศักดิ์ อนันต๊ะ", "อติกันต์ พยุงทอง", "สิทธิโชค โสมอ่ำ"]}]}]}
+
+Example 2 — named people plus "any other director"; a name absent from DIRECTORS is copied as-is
+DIRECTORS: จัตุรงค์ ยิ่งเมือง, ธรรธร ธรรมชัย, โสภณวิชญ์ เจริญวงศ์, วชิรวิชญ์ อินทพันธ์, ธราธร อัศวเดชเมธากุล
+CLAUSE: นางธรรธร ธรรมชัย และนางสาววรรณดาตั้งสำเริงวงศ์ ลงลายมือชื่อร่วมกับ กรรมการอื่นอีกหนึ่งคนและ
+ประทับตราสำคัญของบริษัท
+{"branches": [{"mode": "always", "scope": "", "total": 3, "slots": [
+   {"names": ["ธรรธร ธรรมชัย"]}, {"names": ["วรรณดาตั้งสำเริงวงศ์"]}, {"any_director": true}]}]}
+
+Example 3 — a withdrawing exception: same scope string on both branches
+DIRECTORS: อภิวิชษ์ สายภู่, สรวิชญ์ ใหม่ชุ่ม, วรายุทธ แซ่หนา, นภัสกร แซ่เนี้ยว
+CLAUSE: นางสาวนภัสกร แซ่เนี้ยว ลงลายมือชื่อ เว้นแต่การทำธุรกรรมทางการเงินให้นางสาวนภัสกร แซ่เนี้ยว และ
+นายอภิวิชษ์ สายภู่ ลงลายมือชื่อร่วมกัน
+{"branches": [
+ {"mode": "except", "scope": "การทำธุรกรรมทางการเงิน", "total": 1, "slots": [{"names": ["นภัสกร แซ่เนี้ยว"]}]},
+ {"mode": "only",   "scope": "การทำธุรกรรมทางการเงิน", "total": 2, "slots": [
+   {"names": ["นภัสกร แซ่เนี้ยว"]}, {"names": ["อภิวิชษ์ สายภู่"]}]}]}
+
+Example 4 — an ADDITION ("นอกจาก...แล้วให้"): the general rule stays "always"
+DIRECTORS: บุริศร์ บริบูรณ์, สรวิชญ์ ใหม่ชุ่ม, กนกพร สินธาราศิริกุลชัย, ปภาพินท์ แก้วชาญค้า, สุร กิจไพบูลย์วัฒน์,
+สิรวุฒิ ชูหนู, ปัญจพงศ์ ภูบาลชื่น, ธนะพงษ์ ขจรตันติชัยกุล, มโนธรรม ดําเนิน, พศิน บัวขาว, นพณัฐ ประเสริฐวงษา
+CLAUSE: (1) นางกนกพร สินธาราศิริกุลชัย หรือ นายสุร กิจไพบูลย์วัฒน์ลงลายมือชื่อร่วมกับกรรมการอื่นอีกหนึ่งคน
+หรือ นายบุริศร์ บริบูรณ์ หรือนายสรวิชญ์ ใหม่ชุ่ม หรือนายสิรวุฒิ ชูหนู สองในสามคนนี้ลงลายมือชื่อร่วมกัน (2) การทำ
+ธุรกรรมต่างๆ กับหน่วยงานราชการ หรือการดำเนินคดี นอกจากผู้มีอำนาจตาม (1) แล้วให้นายพศิน บัวขาวหรือ
+นางนพณัฐ ประเสริฐวงษา ลงลายมือชื่อ
+{"branches": [
+ {"mode": "always", "scope": "", "total": 2, "slots": [
+   {"names": ["กนกพร สินธาราศิริกุลชัย", "สุร กิจไพบูลย์วัฒน์"]}, {"any_director": true}]},
+ {"mode": "always", "scope": "", "total": 2, "slots": [
+   {"names": ["บุริศร์ บริบูรณ์", "สรวิชญ์ ใหม่ชุ่ม", "สิรวุฒิ ชูหนู"]},
+   {"names": ["บุริศร์ บริบูรณ์", "สรวิชญ์ ใหม่ชุ่ม", "สิรวุฒิ ชูหนู"]}]},
+ {"mode": "only", "scope": "การทำธุรกรรมต่างๆ กับหน่วยงานราชการ หรือการดำเนินคดี", "total": 1, "slots": [
+   {"names": ["พศิน บัวขาว", "นพณัฐ ประเสริฐวงษา"]}]}]}
+
+Example 5 — a per-group template: one from EACH group, whatever the counting words say
+DIRECTORS: กนกพร สินธาราศิริกุลชัย, ศิวกร วังวล, วชิรวิทย์ เปรมไธสง, วรนัยน์ นางาซาวา
+PATTERN HINT: (นาย ก.หรือ นาย ข.หรือ..) กลุ่ม 1 (...) กลุ่ม 2 (...) กลุ่ม 3 กรรมการ x คนจากแต่ละกลุ่มรวมเป็น y คน
+CLAUSE: นายกนกพร สินธาราศิริกุลชัย หรือนายศิวกร วังวล กรรมการกลุ่ม 1 นายวชิรวิทย์ เปรมไธสง กรรมการกลุ่ม 2
+นายวรนัยน์ นางาซาวา กรรมการกลุ่ม 3 ให้กรรมการสองในสามกลุ่มลงลายมือชื่อร่วมกันรวมเป็น 2 คนและประทับตรา
+สำคัญของบริษัท
+{"branches": [{"mode": "always", "scope": "", "total": 3, "slots": [
+   {"names": ["กนกพร สินธาราศิริกุลชัย", "ศิวกร วังวล"]}, {"names": ["วชิรวิทย์ เปรมไธสง"]},
+   {"names": ["วรนัยน์ นางาซาวา"]}]}]}
 """
 
 
@@ -146,8 +221,9 @@ def compile_user(context: str, directors: Sequence[str], pattern: int | None,
     lines += [f"  {i + 1}. {n}" for i, n in enumerate(directors)] or ["  (ไม่มีข้อมูล)"]
     if template:
         lines.append("")
-        lines.append(f"PATTERN HINT (แม่แบบ {pattern} ที่ผู้จัดทำโจทย์ติดป้ายไว้): {template}")
-        lines.append("ใช้เป็นเบาะแสได้ แต่ถ้าข้อความจริงไม่ตรงกับแม่แบบ ให้ยึดข้อความจริง")
+        lines.append(f"PATTERN HINT (แม่แบบ {pattern} ที่ผู้เฉลยใช้ตีความ clause นี้): {template}")
+        lines.append("โครงสร้างหลัก (ใครกี่คนจากกลุ่มไหน) ยึดตามแม่แบบนี้ ชื่อและตัวเลขเอาจากข้อความจริง "
+                     "และข้อยกเว้น/เงื่อนไขที่ข้อความมีเพิ่มก็ยังต้องใส่")
     if conditions:
         lines.append("")
         lines.append("ข้อความเงื่อนไขที่โจทย์ตัดมาให้ (บอกว่า clause นี้มีข้อยกเว้นอยู่จริง):")
@@ -170,12 +246,12 @@ def compile_messages(context: str, directors: Sequence[str], pattern: int | None
 
 SCOPE_SYSTEM = """\
 You are a Thai corporate-law analyst. A signing-authority clause has branches that only apply
-in certain situations. Given each branch's situation description and a numbered list of legal
-acts (ประเภทนิติกรรม) that people ask about, decide which acts fall inside each description.
+in certain situations. Given each special situation the clause carves out and a numbered list of
+legal acts (ประเภทนิติกรรม) that people ask about, decide which acts fall inside each situation.
 
 Reply with JSON only:
 
-{"branches": [{"index": <branch index>, "acts": [<act numbers that fall inside its scope>]}]}
+{"branches": [{"index": <scope index>, "acts": [<act numbers that fall inside that situation>]}]}
 
 * Judge by meaning, not by wording. "ธุรกรรมทางการเงิน" and "การลงนามเบิกจ่ายเงินในบัญชีธนาคาร"
   both fall inside "นิติกรรมเกี่ยวกับการเงิน".
@@ -184,15 +260,15 @@ Reply with JSON only:
   is outside it. An act with no amount stated is outside an amount-gated scope.
 * A scope that reads "กรณีทั่วไป" covers every act that no more specific branch covers.
 * List an act number under a branch only when it really belongs there. Empty lists are fine.
-* Include one entry for every branch index given. Output the JSON object only.
+* Include one entry for every scope index given. Output the JSON object only.
 """
 
 
 def scope_messages(context: str, branches: Sequence[dict], acts: Sequence[str]) -> list[dict[str, str]]:
-    lines = ["CLAUSE:", context, "", "BRANCHES ที่มีเงื่อนไข:"]
+    """`branches` is one entry per DISTINCT scope text (index, scope) — see compile.resolve_scopes."""
+    lines = ["CLAUSE:", context, "", "SCOPES (สถานการณ์ที่ clause แยกออกมาเป็นกรณีพิเศษ):"]
     for b in branches:
-        kind = "ใช้ได้เฉพาะกรณี" if b["mode"] == "only" else "ใช้ได้ทุกกรณี ยกเว้น"
-        lines.append(f"  [{b['index']}] {kind}: {b['scope']}")
+        lines.append(f"  [{b['index']}] {b['scope']}")
     lines.append("")
     lines.append("LEGAL ACTS ที่ต้องจัดกลุ่ม:")
     lines += [f"  {i + 1}. {a}" for i, a in enumerate(acts)]
