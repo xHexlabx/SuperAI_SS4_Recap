@@ -110,3 +110,6 @@ __pycache__/
 # secrets
 .env
 kaggle.json
+
+# ultralytics auto-downloaded checkpoints
+weights/

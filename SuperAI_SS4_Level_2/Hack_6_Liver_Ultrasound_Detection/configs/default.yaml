@@ -1,0 +1,53 @@
+# Liver Ultrasound Detection — default config. Override anything with: make train SET='--set model.weights=yolo26l.pt'
+data:
+  root: datasets
+  yolo_dir: datasets/yolo
+  mobile_oversample: 1      # >1 duplicates mobile (phone-photo) train images via extra symlinks
+  train_on_val: false       # final fit: fold the val split into train
+  neg_fraction: 1.0         # fraction of no-lesion train images to keep
+  synth_dir: null           # e.g. datasets/synth_v1 — simulated phone photos added to train
+
+model:
+  family: yolo              # yolo | rtdetr (both through ultralytics)
+  weights: yolo26m.pt
+  imgsz: 1024
+
+train:
+  out_dir: models
+  run_name: null            # default: <weights stem>_<imgsz>[_osK]
+  epochs: 100
+  patience: 30
+  batch: 0.7                # fraction of VRAM -> ultralytics autobatch
+  seed: 42
+  optimizer: auto
+  lr0: 0.01
+  cos_lr: true
+  close_mosaic: 15
+  workers: 8
+  mosaic: 1.0
+  mixup: 0.1
+  degrees: 5.0
+  translate: 0.1
+  scale: 0.5
+  shear: 0.0
+  perspective: 0.0003
+  fliplr: 0.5
+  flipud: 0.0
+  hsv_h: 0.01
+  hsv_s: 0.3
+  hsv_v: 0.4
+  extra: {}
+
+predict:
+  runs: []                  # models/<run> dirs to ensemble; empty = latest run
+  conf: 0.001
+  iou: 0.6
+  max_det: 100
+  augment: true             # TTA
+  agnostic_nms: true
+  wbf_iou: 0.55
+  out_csv: submissions/submission.csv
+  threshold: null           # null = tune on val with the no-confidence metric
+  max_boxes: 5
+  tune_slice: testlike      # val slice to tune on: all | machine | mobile | testlike (61% mobile like test)
+  class_thresholds: true

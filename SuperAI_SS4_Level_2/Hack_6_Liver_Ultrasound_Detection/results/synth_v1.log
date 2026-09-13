@@ -1,0 +1,31 @@
+/home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/src/liver_us/synth.py:83: RuntimeWarning: invalid value encountered in power
+  photo = 255.0 * (photo / 255.0) ** gamma
+/home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/src/liver_us/synth.py:83: RuntimeWarning: invalid value encountered in power
+  photo = 255.0 * (photo / 255.0) ** gamma
+/home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/src/liver_us/synth.py:102: RuntimeWarning: invalid value encountered in cast
+  photo = np.clip(photo, 0, 255).astype(np.uint8)
+/home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/src/liver_us/synth.py:102: RuntimeWarning: invalid value encountered in cast
+  photo = np.clip(photo, 0, 255).astype(np.uint8)
+/home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/src/liver_us/synth.py:83: RuntimeWarning: invalid value encountered in power
+  photo = 255.0 * (photo / 255.0) ** gamma
+/home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/src/liver_us/synth.py:83: RuntimeWarning: invalid value encountered in power
+  photo = 255.0 * (photo / 255.0) ** gamma
+/home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/src/liver_us/synth.py:102: RuntimeWarning: invalid value encountered in cast
+  photo = np.clip(photo, 0, 255).astype(np.uint8)
+/home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/src/liver_us/synth.py:102: RuntimeWarning: invalid value encountered in cast
+  photo = np.clip(photo, 0, 255).astype(np.uint8)
+/home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/src/liver_us/synth.py:83: RuntimeWarning: invalid value encountered in power
+  photo = 255.0 * (photo / 255.0) ** gamma
+/home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/src/liver_us/synth.py:102: RuntimeWarning: invalid value encountered in cast
+  photo = np.clip(photo, 0, 255).astype(np.uint8)
+/home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/src/liver_us/synth.py:83: RuntimeWarning: invalid value encountered in power
+  photo = 255.0 * (photo / 255.0) ** gamma
+/home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/src/liver_us/synth.py:102: RuntimeWarning: invalid value encountered in cast
+  photo = np.clip(photo, 0, 255).astype(np.uint8)
+  0/10525
+  2000/10525
+  4000/10525
+  6000/10525
+  8000/10525
+  10000/10525
+wrote 10522 synthetic photos to datasets/synth_v1
