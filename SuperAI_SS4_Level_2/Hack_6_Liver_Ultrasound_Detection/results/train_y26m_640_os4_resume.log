@@ -1,0 +1,79 @@
+resuming from /home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/models/yolo26m_640_os4/weights/last.pt
+New https://pypi.org/project/ultralytics/8.4.150 available 😃 Update with 'pip install -U ultralytics'
+Ultralytics 8.4.147 🚀 Python-3.12.14 torch-2.14.0+cu130 CUDA:0 (NVIDIA GeForce RTX 3080 Ti Laptop GPU, 15984MiB)
+[34m[1mengine/trainer: [0magnostic_nms=False, amp=True, angle=1.0, augment=False, auto_augment=randaugment, batch=16, bgr=0.0, box=7.5, cache=False, cfg=None, channels_last=None, classes=None, close_mosaic=15, cls=0.5, cls_pw=0.0, cls_remap=True, compile=False, conf=None, copy_paste=0.0, copy_paste_mode=flip, cos_lr=True, cutmix=0.0, data=/home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/datasets/yolo/data_os4_neg1.yaml, degrees=5.0, deterministic=False, device=, dfl=1.5, dgrad=0.5, dis=6.0, distill_model=None, dlam=1.0, dlog=1.0, dnn=False, dropout=0.0, dynamic=False, embed=None, epochs=40, erasing=0.4, exist_ok=True, fliplr=0.5, flipud=0.0, format=torchscript, fraction=1.0, freeze=None, hsv_h=0.01, hsv_s=0.3, hsv_v=0.4, imgsz=640, iou=0.7, keras=False, kobj=1.0, line_width=None, lr0=0.01, lrf=0.01, mask_ratio=4, max_det=300, mixup=0.1, mode=train, model=/home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/models/yolo26m_640_os4/weights/last.pt, momentum=0.937, mosaic=1.0, multi_scale=0.0, name=yolo26m_640_os4, nbs=64, nms=None, opset=None, optimize=False, optimizer=auto, overlap_mask=True, patience=15, perspective=0.0003, plots=True, pose=12.0, pretrained=True, profile=False, project=/home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/models, quantize=None, rect=False, resume=/home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/models/yolo26m_640_os4/weights/last.pt, retina_masks=False, rle=1.0, save=True, save_conf=False, save_crop=False, save_dir=/home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/models/yolo26m_640_os4, save_frames=False, save_json=False, save_period=-1, save_txt=False, scale=0.5, seed=42, shear=0.0, show=False, show_boxes=True, show_conf=True, show_labels=True, simplify=True, single_cls=False, source=None, split=val, stream_buffer=False, task=detect, time=None, tracker=tracktrack.yaml, translate=0.1, val=True, verbose=True, vid_stride=1, visualize=False, warmup_bias_lr=0.0, warmup_epochs=3.0, warmup_momentum=0.8, weight_decay=0.0005, workers=8, workspace=None
+
+                   from  n    params  module                                       arguments                     
+  0                  -1  1      1856  ultralytics.nn.modules.conv.Conv             [3, 64, 3, 2]                 
+  1                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]               
+  2                  -1  1    111872  ultralytics.nn.modules.block.C3k2            [128, 256, 1, True, 0.25]     
+  3                  -1  1    590336  ultralytics.nn.modules.conv.Conv             [256, 256, 3, 2]              
+  4                  -1  1    444928  ultralytics.nn.modules.block.C3k2            [256, 512, 1, True, 0.25]     
+  5                  -1  1   2360320  ultralytics.nn.modules.conv.Conv             [512, 512, 3, 2]              
+  6                  -1  1   1380352  ultralytics.nn.modules.block.C3k2            [512, 512, 1, True]           
+  7                  -1  1   2360320  ultralytics.nn.modules.conv.Conv             [512, 512, 3, 2]              
+  8                  -1  1   1380352  ultralytics.nn.modules.block.C3k2            [512, 512, 1, True]           
+  9                  -1  1    656896  ultralytics.nn.modules.block.SPPF            [512, 512, 5, 3, True]        
+ 10                  -1  1    990976  ultralytics.nn.modules.block.C2PSA           [512, 512, 1]                 
+ 11                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 12             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 13                  -1  1   1642496  ultralytics.nn.modules.block.C3k2            [1024, 512, 1, True]          
+ 14                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 15             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 16                  -1  1    542720  ultralytics.nn.modules.block.C3k2            [1024, 256, 1, True]          
+ 17                  -1  1    590336  ultralytics.nn.modules.conv.Conv             [256, 256, 3, 2]              
+ 18            [-1, 13]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 19                  -1  1   1511424  ultralytics.nn.modules.block.C3k2            [768, 512, 1, True]           
+ 20                  -1  1   2360320  ultralytics.nn.modules.conv.Conv             [512, 512, 3, 2]              
+ 21            [-1, 10]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 22                  -1  1   1974784  ultralytics.nn.modules.block.C3k2            [1024, 512, 1, True, 0.5, True]
+ 23        [16, 19, 22]  1   2809410  ultralytics.nn.modules.head.Detect           [7, 1, True, [256, 512, 512]] 
+YOLO26m summary: 280 layers, 21,783,682 parameters, 21,783,682 gradients, 75.0 GFLOPs
+
+Transferred 768/768 items from pretrained weights
+[34m[1mAMP: [0mrunning Automatic Mixed Precision (AMP) checks...
+[34m[1mAMP: [0mchecks passed ✅
+[34m[1mtrain: [0mFast image access ✅ (ping: 0.0±0.0 ms, read: 119.8±30.2 MB/s, size: 167.1 KB)
+[K[34m[1mtrain: [0mScanning /home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/datasets/yolo/train_os4_neg1/labels.cache... 7891 images, 7904 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 15795/15795 5.1Git/s 0.0s
+[34m[1mval: [0mFast image access ✅ (ping: 0.0±0.0 ms, read: 146.5±45.1 MB/s, size: 175.8 KB)
+[K[34m[1mval: [0mScanning /home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/datasets/yolo/val/labels... 2445 images, 2453 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 4898/4898 4.1Kit/s 1.2s
+[34m[1mval: [0mNew cache created: /home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/datasets/yolo/val/labels.cache
+[34m[1moptimizer:[0m 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.937' and determining best 'optimizer', 'lr0' and 'momentum' automatically... 
+[34m[1moptimizer:[0m AdamW(lr=0.000909, momentum=0.9) with parameter groups 124 weight(decay=0.0), 136 weight(decay=0.0005), 136 bias(decay=0.0)
+Plotting labels to /home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/models/yolo26m_640_os4/labels.jpg... 
+Resuming training /home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/models/yolo26m_640_os4/weights/last.pt from epoch 39 to 40 total epochs
+Closing dataloader mosaic
+Using 15795 train, 4898 val images for fraction=1.0 at imgsz=640
+Using 8 dataloader workers
+Logging results to [1m/home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/models/yolo26m_640_os4[0m
+Starting training for 40 epochs...
+
+      Epoch    GPU_mem   box_loss   cls_loss    l1_loss  Instances       Size
+[K      39/40       8.9G      1.332     0.6326   0.007221          3        640: 100% ━━━━━━━━━━━━ 988/988 3.7it/s 4:27
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 154/154 5.7it/s 26.9s
+                   all       4898       2910      0.691      0.584      0.609      0.304
+
+      Epoch    GPU_mem   box_loss   cls_loss    l1_loss  Instances       Size
+[K      40/40      8.96G      1.337     0.6381   0.007232          2        640: 100% ━━━━━━━━━━━━ 988/988 3.5it/s 4:42
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 154/154 5.6it/s 27.7s
+                   all       4898       2910      0.696      0.585       0.61      0.305
+
+2 epochs completed in 0.168 hours.
+Optimizer stripped from /home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/models/yolo26m_640_os4/weights/last.pt, 44.0MB
+Optimizer stripped from /home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/models/yolo26m_640_os4/weights/best.pt, 44.0MB
+
+Validating /home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/models/yolo26m_640_os4/weights/best.pt...
+Ultralytics 8.4.147 🚀 Python-3.12.14 torch-2.14.0+cu130 CUDA:0 (NVIDIA GeForce RTX 3080 Ti Laptop GPU, 15984MiB)
+YOLO26m summary (fused): 130 layers, 20,354,849 parameters, 0 gradients, 68.1 GFLOPs
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 154/154 5.8it/s 26.4s
+                   all       4898       2910      0.695      0.587      0.614      0.308
+                   FFC        308        349      0.712      0.589      0.604      0.287
+                   FFS        539        629      0.631      0.585      0.592      0.265
+                   HCC        533        578      0.776      0.672      0.716      0.393
+                  cyst        436        461      0.769       0.59      0.663      0.352
+            hemangioma        451        454      0.791      0.692      0.727      0.377
+            dysplastic        160        171      0.708      0.702        0.7      0.361
+                   CCA         47        268      0.476      0.278      0.295      0.123
+Speed: 0.1ms preprocess, 4.4ms inference, 0.0ms loss, 0.3ms postprocess per image
+Results saved to [1m/home/hextex/Documents/Github/SuperAI_SS4_Recap/SuperAI_SS4_Level_2/Hack_6_Liver_Ultrasound_Detection/models/yolo26m_640_os4[0m
+resume finished
