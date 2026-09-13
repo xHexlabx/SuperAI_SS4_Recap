@@ -1,0 +1,74 @@
+# Sleep Stages Classification — default config.
+# Override anything on the command line: make train SET='--set model.name=lgbm'
+data:
+  kaggle_slug: signal-processing-sleep-staging-classification
+  root: datasets
+  cache_dir: datasets/cache
+  n_jobs: 8
+
+features:
+  fs: 64                     # every column comes resampled to 64 Hz; 1 epoch = 1920 rows = 30 s
+  epoch_samples: 1920
+  bvp_band: [0.5, 8.0]       # band-pass before systolic peak detection
+  peak_min_distance_s: 0.33  # 180 bpm ceiling
+  nn_range_s: [0.33, 2.0]
+  nn_ectopic_tol: 0.25
+  hrv_window_s: 300.0        # 5 min context for the VLF/LF/HF block (standard HRV practice)
+  hrv_interp_hz: 4.0
+  eda_scr_band: [0.05, 1.0]
+  acc_still_g: 0.02
+
+context:
+  per_subject_norm: true     # robust z-score inside each recording — test subjects are strangers
+  keep_absolute: true
+  lags: [1, 2, 3, 5, 10, 20]     # +/- epochs, applied to the core features (lgbm only)
+  roll_windows: [5, 31, 121]     # centred windows: 2.5 min, 15 min, 1 hour (lgbm only)
+  clock: true
+
+cv:
+  n_folds: 5                 # folds over whole nights — one subject is never split
+  full_fit: true
+
+model:
+  name: bilstm               # lgbm | bilstm | gru | tcn
+  # lightgbm
+  n_estimators: 1200
+  learning_rate: 0.05
+  num_leaves: 63
+  min_child_samples: 60
+  subsample: 0.8
+  colsample_bytree: 0.5
+  reg_lambda: 1.0
+  class_weight: balanced
+  # sequence nets
+  hidden: 128
+  layers: 2
+  dropout: 0.3
+  epochs: 60
+  lr: 0.002
+  weight_decay: 0.0001
+  batch_size: 8
+  crop_epochs: 0
+  label_smoothing: 0.05
+  loss_class_weight: balanced
+  n_seeds: 3
+  device: auto               # auto | cpu | cuda (เฉพาะ sequence net; auto = ใช้ GPU ถ้ามี)
+  avg_last: 5
+  tcn_kernel: 7
+  tcn_dilations: [1, 2, 4, 8, 16, 32]
+
+smooth:
+  method: hmm                # none | hmm  — Viterbi over the training transition matrix
+  self_bias: 0.0
+  prior_power: 1.0
+  calibrate: true            # ปรับ bias ต่อคลาสบน OOF ให้ macro F1 สูงสุด
+
+train:
+  out_dir: models
+  run_name: null
+  seed: 42
+
+predict:
+  runs: []                   # empty = latest run
+  source: full               # full | folds | both
+  out_csv: submissions/submission.csv

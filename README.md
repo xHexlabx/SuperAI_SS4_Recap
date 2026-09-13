@@ -54,7 +54,7 @@
 | 2 | 📔 [Nithan Chadok Hybrid OCR-NER 🚧](./SuperAI_SS4_Individual_Hackathon/Hack_2_Nithan_Chadok_Hybrid_OCR-NER) | OCR + NER | — |
 | 3 | 🚗 [Car Prediction](./SuperAI_SS4_Individual_Hackathon/Hack_3_Car_Prediction) | Tabular Classification | AutoGluon |
 | 4 | ♨️ [Temperature Prediction](./SuperAI_SS4_Individual_Hackathon/Hack_4_Temperature_Prediction) | Tabular Regression | CatBoost · XGBoost · AutoGluon |
-| 5 | 😴 [Sleep Stages Classification](./SuperAI_SS4_Individual_Hackathon/Hack_5_Sleep_Stages_Classification) | Signal Classification | FFT · AutoGluon |
+| 5 | 😴 [Sleep Stages Classification](./SuperAI_SS4_Individual_Hackathon/Hack_5_Sleep_Stages_Classification) | Wearable Sleep Staging (3 คลาส, cross-subject) | scipy · LightGBM · BiLSTM/TCN · Viterbi |
 
 <p>
  <i>หมายเหตุ : 🚧 คือ Notebook ที่ยังเป็น Placeholder อยู่ครับ เดี๋ยวจะทยอยเติม Code ให้ครบนะครับ 🙏</i>
@@ -286,10 +286,13 @@ https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Individual_H
 
 #### Sleep Stages Classification
 <p>
- 😴 ใน Hackathon นี้ จะเป็นการ Classified <b>ระยะการนอนหลับ</b> จากสัญญาณชีวภาพ โดยจะต้องซอยสัญญาณออกเป็นช่วงละ <b>30 วินาที (1920 rows)</b> แล้วทำ Feature Engineering ด้วย <u>FFT</u> เพื่อดึงข้อมูลด้านความถี่ออกมาก่อนโยนเข้าโมเดล นับเป็นงานที่ได้ใช้ทั้งความรู้ด้าน Signal Processing และ Machine Learning โดยสามารถติดตามวิธีการได้ใน Repository นี้
+ 😴 ใน Hackathon นี้ จะเป็นการ Classified <b>ระยะการนอนหลับ</b> (ตื่น / หลับธรรมดา / หลับฝัน) จากสัญญาณชีวภาพทีละ <b>30 วินาที (1920 rows)</b> นับเป็นงานที่ได้ใช้ทั้งความรู้ด้าน Signal Processing และ Machine Learning<br>
+ รอบนี้เขียนใหม่เป็น <b>Python package</b> — EDA พบว่าข้อมูลคือสายรัดข้อมือ <b>Empatica E4</b> (ชุด DREAMT) ไม่ใช่ EEG และที่สำคัญกว่านั้นคือ <b>ไฟล์ test เรียงตามเวลาและต่อกลับเป็นคืนเดียวได้</b> จึงใช้ context ทั้งคืนแทนการตัดสินทีละ epoch โดด ๆ · รายละเอียดใน README ของโฟลเดอร์
 </p>
 
-> **Task** : Signal Classification &nbsp;|&nbsp; **Tools** : numpy (FFT) , AutoGluon , scikit-learn , seaborn
+> **Task** : Wearable Sleep Staging (3 คลาส W/N/R, cross-subject) &nbsp;|&nbsp; **Metric** : macro F1 &nbsp;|&nbsp; **Tools** : scipy , LightGBM , PyTorch (BiLSTM/TCN) , Viterbi<br>
+> **รอบเดิม** : `Sleep_Stages_Classification.ipynb` (FFT + AutoGluon) ได้ **0.58881 public / 0.59865 private** อันดับ 28 จาก 156 ทีม (ที่ 1 ของตาราง 0.59331)<br>
+> **รอบใหม่ (2026)** : rebuild เป็น Python package — HRV + **feature การหายใจ (RIIV/RSA)** + actigraphy → sequence model ทั้งคืน + calibration ต่อคลาส + Viterbi
 
 https://github.com/xHexlabx/SuperAI_SS4_Recap/tree/main/SuperAI_SS4_Individual_Hackathon/Hack_5_Sleep_Stages_Classification
 

@@ -102,6 +102,11 @@ __pycache__/
 *.pth
 *.ckpt
 
+# ...but keep the small float32 probabilities archived for a handover,
+# so another machine can ensemble without re-training (see Hack 5 `make restore`)
+!**/results/saved_runs/**/*.npy
+!**/results/saved_runs/**/*.npz
+
 # secrets
 .env
 kaggle.json
